@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
+import sudoku.generator.GeneratorProvera;
+
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
@@ -18,11 +20,26 @@ import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+
+/**
+ * 
+ * Ova klasa predstavlja glavni prozor aplikacije.
+ * 
+ * @author Team4-2017
+ *
+ */
+
 public class SudokuMainWindow {
 
+	/**
+	 * Matrica koja sadrzi sva polja za sudoku tabelu.
+	 */
 	private JTextField[][] matricaPolja;
-	private int[][] matricaBrojeva = new int[9][9];
 	
+	/**
+	 * Objekat klase GeneratorProvera.
+	 */
+	GeneratorProvera gen = new GeneratorProvera();
 	
 	private JFrame frmSudokuGame;
 	private JPanel southPanel;
@@ -1407,16 +1424,16 @@ public class SudokuMainWindow {
 	/**
 	 * Metoda koja za odredjeno polje proverava da li je uneseni karakter dozvoljen i ukoliko nije bice ponisten,
 	 * ukoliko je dozvoljen bice unesen u niz brojeva.
-	 * @param arg0 argument koji se dobija od actionListener-a, sadrzi karakter koji se proverava
-	 * @param x predstavlja x koordinatu polja
-	 * @param y predstavlja y koordinatu polja
+	 * @param arg0 argument koji se dobija od actionListener-a, sadrzi karakter koji se proverava.
+	 * @param x predstavlja x koordinatu polja.
+	 * @param y predstavlja y koordinatu polja.
 	 */
 	private void provera(KeyEvent arg0, int x, int y) {
 		char c = arg0.getKeyChar();
 		  if (!((c >= '1') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)) || (matricaPolja[x][y].getText().length() >= 1)) {
 			  arg0.consume();
 		  } else if ((c >= '1') && (c <= '9')) {
-			  matricaBrojeva[x][y] = Integer.parseInt(arg0.getKeyChar() + "");
+			  gen.unesiBroj(Integer.parseInt(arg0.getKeyChar() + ""), x, y);
 		  }
 	}
 }

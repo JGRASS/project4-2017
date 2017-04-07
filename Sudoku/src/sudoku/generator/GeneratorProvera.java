@@ -2,8 +2,29 @@ package sudoku.generator;
 
 import java.util.Random;
 
+/**
+ * 
+ * Klasa koja sadrzi matricu brojeva koji se koriste u trenutnoj igri, metode za upravljanje njome i
+ * metodu za generisanje pocetnih vrednosti u novoj igri.
+ * 
+ * @author Team4-2017
+ *
+ */
+
 public class GeneratorProvera {
+	
+	/**
+	 * Matrica svih brojeva koji su generisani ili uneseni od strane igraca.
+	 */
 	int [][] matrica = new int [9][9];
+	
+	/**
+	 * Metoda koja proverava da li zadati broj postoji u istom redu u matrici.
+	 * 
+	 * @param broj predstavlja broj koji se pretrazuje u zadatom redu.
+	 * @param red predstavlja red na kome se vrsi pretraga.
+	 * @return vraca se true ili false u zavisnosti od toga da li je takav broj pronadjen ili nije.
+	 */
 	public boolean uRedu(int broj, int red){
 		for(int i=0;i<9;i++){
 			if(matrica[red][i]==broj){
@@ -14,6 +35,13 @@ public class GeneratorProvera {
 		
 	}
 	
+	/**
+	 * Metoda koja proverava da li zadati broj postoji u istoj koloni u matrici.
+	 * 
+	 * @param broj predstavlja broj koji se pretrazuje u zadatoj koloni.
+	 * @param kolona predstavlja kolonu na kojoj se vrsi pretraga.
+	 * @return vraca se true ili false u zavisnosti od toga da li je takav broj pronadjen ili nije.
+	 */
 	public boolean uKoloni(int broj, int kolona){
 		for(int i=0;i<9;i++){
 			if(matrica[i][kolona]==broj){
@@ -23,6 +51,16 @@ public class GeneratorProvera {
 		return false;
 		
 	}
+	
+	
+	/**
+	 * Metoda koja proverava da li zadati broj postoji u istom kvadaratu u matrici.
+	 * 
+	 * @param broj predstavlja broj koji se pretrazuje u zadatom kvadratu.
+	 * @param red predstavlja red u kome se nalazi broj, na osnovu cega se odredjuje kom kvadratu pripada.
+	 * @param kolona predstavlja kolonu u kojoj se nalazi broj, na osnovu cega se odredjuje kom kvadratu pripada.
+	 * @return vraca se true ili false u zavisnosti od toga da li je takav broj pronadjen ili nije.
+	 */
 	public boolean uKvadratu(int broj, int red, int kolona ){
 		
 		if(red<3){
@@ -124,7 +162,12 @@ public class GeneratorProvera {
 		return false;
 		
 	}
+	
+	/**
+	 * Metoda koja generise pocetne vrednosti za sudoku igru.
+	 */
 	public void generisati(){
+		obrisiMatricu();
 		for (int j = 0; j < 9; j+=3) {
 			for (int k = 0; k < 9; k+=3) {
 			Random r = new Random();
@@ -148,9 +191,43 @@ public class GeneratorProvera {
 		}}
 	}
 	
+	/**
+	 * Metoda koja za uneti broj i koordinate unosi dati broj na zeljeno mesto u matrici.
+	 * 
+	 * @param broj predstavlja broj koji je potrebno uneti u matricu.
+	 * @param x koordinata reda gde treba uneti broj.
+	 * @param y koordinata kolone gde treba uneti broj;
+	 */
 	public void unesiBroj(int broj, int x, int y){
 		matrica[x][y]=broj;
 		
+	}
+	
+	/**
+	 * Metoda koja postavlja vrednosti svih clanova matrice na nulu.
+	 */
+	public void obrisiMatricu() {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				matrica[i][j] = 0;
+			}
+		}
+	}
+
+	/**
+	 * Metoda koja vraca celokupnu matricu trenutne igre.
+	 * @return vraca se cela matrica.
+	 */
+	public int[][] getMatrica() {
+		return matrica;
+	}
+
+	/**
+	 * Metoda kojom se zadata matrica unosi u trenutnu igru.
+	 * @param matrica zeljena matrica koja se unosi u trenutnu igru.
+	 */
+	public void setMatrica(int[][] matrica) {
+		this.matrica = matrica;
 	}	
 }
 
