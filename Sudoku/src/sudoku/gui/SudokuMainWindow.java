@@ -1415,7 +1415,7 @@ public class SudokuMainWindow {
 		char c = arg0.getKeyChar();
 		  if (!((c >= '1') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)) || (matricaPolja[x][y].getText().length() >= 1)) {
 			  arg0.consume();
-		  } else {
+		  } else if ((c >= '1') && (c <= '9')) {
 			  matricaBrojeva[x][y] = Integer.parseInt(arg0.getKeyChar() + "");
 		  }
 	}
