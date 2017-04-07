@@ -207,7 +207,7 @@ public class SudokuMainWindow {
 			textField.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField);
+					provera(arg0, 0, 0);
 				}
 			});
 			textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -221,7 +221,7 @@ public class SudokuMainWindow {
 			textField_1.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_1);
+					provera(arg0, 0, 1);
 				}
 			});
 			textField_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -235,7 +235,7 @@ public class SudokuMainWindow {
 			textField_2.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_2);
+					provera(arg0, 0, 2);
 				}
 			});
 			textField_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -249,7 +249,7 @@ public class SudokuMainWindow {
 			textField_3.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_3);
+					provera(arg0, 1, 0);
 				}
 			});
 			textField_3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -263,7 +263,7 @@ public class SudokuMainWindow {
 			textField_4.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_4);
+					provera(arg0, 1, 1);
 				}
 			});
 			textField_4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -277,7 +277,7 @@ public class SudokuMainWindow {
 			textField_5.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_5);
+					provera(arg0, 1, 2);
 				}
 			});
 			textField_5.setHorizontalAlignment(SwingConstants.CENTER);
@@ -291,7 +291,7 @@ public class SudokuMainWindow {
 			textField_6.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_6);
+					provera(arg0, 2, 0);
 				}
 			});
 			textField_6.setHorizontalAlignment(SwingConstants.CENTER);
@@ -305,7 +305,7 @@ public class SudokuMainWindow {
 			textField_7.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_7);
+					provera(arg0, 2, 1);
 				}
 			});
 			textField_7.setHorizontalAlignment(SwingConstants.CENTER);
@@ -319,7 +319,7 @@ public class SudokuMainWindow {
 			textField_8.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_8);
+					provera(arg0, 2, 2);
 				}
 			});
 			textField_8.setHorizontalAlignment(SwingConstants.CENTER);
@@ -341,7 +341,7 @@ public class SudokuMainWindow {
 			textField_9.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_9);
+					provera(arg0, 0, 3);
 				}
 			});
 			textField_9.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -355,7 +355,7 @@ public class SudokuMainWindow {
 			textField_10.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_10);
+					provera(arg0, 0, 4);
 				}
 			});
 			textField_10.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -369,7 +369,7 @@ public class SudokuMainWindow {
 			textField_11.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_11);
+					provera(arg0, 0 ,5);
 				}
 			});
 			textField_11.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -383,7 +383,7 @@ public class SudokuMainWindow {
 			textField_12.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_12);
+					provera(arg0, 1, 3);
 				}
 			});
 			textField_12.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -397,7 +397,7 @@ public class SudokuMainWindow {
 			textField_13.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_13);
+					provera(arg0, 1, 4);
 				}
 			});
 			textField_13.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -411,7 +411,7 @@ public class SudokuMainWindow {
 			textField_14.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_14);
+					provera(arg0, 1, 5);
 				}
 			});
 			textField_14.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -425,7 +425,7 @@ public class SudokuMainWindow {
 			textField_15.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_15);
+					provera(arg0, 2, 3);
 				}
 			});
 			textField_15.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -439,7 +439,7 @@ public class SudokuMainWindow {
 			textField_16.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_16);
+					provera(arg0, 2, 4);
 				}
 			});
 			textField_16.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -453,7 +453,7 @@ public class SudokuMainWindow {
 			textField_17.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_17);
+					provera(arg0, 2, 5);
 				}
 			});
 			textField_17.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -475,7 +475,7 @@ public class SudokuMainWindow {
 			textField_18.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_18);
+					provera(arg0, 0, 6);
 				}
 			});
 			textField_18.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -489,7 +489,7 @@ public class SudokuMainWindow {
 			textField_19.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_19);
+					provera(arg0, 0, 7);
 				}
 			});
 			textField_19.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -503,7 +503,7 @@ public class SudokuMainWindow {
 			textField_20.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_20);
+					provera(arg0, 0, 8);
 				}
 			});
 			textField_20.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -517,7 +517,7 @@ public class SudokuMainWindow {
 			textField_21.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_21);
+					provera(arg0, 1, 6);
 				}
 			});
 			textField_21.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -531,7 +531,7 @@ public class SudokuMainWindow {
 			textField_22.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_22);
+					provera(arg0, 1, 7);
 				}
 			});
 			textField_22.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -545,7 +545,7 @@ public class SudokuMainWindow {
 			textField_23.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_23);
+					provera(arg0, 1, 8);
 				}
 			});
 			textField_23.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -559,7 +559,7 @@ public class SudokuMainWindow {
 			textField_24.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_24);
+					provera(arg0, 2, 6);
 				}
 			});
 			textField_24.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -573,7 +573,7 @@ public class SudokuMainWindow {
 			textField_25.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_25);
+					provera(arg0, 2, 7);
 				}
 			});
 			textField_25.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -587,7 +587,7 @@ public class SudokuMainWindow {
 			textField_26.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_26);
+					provera(arg0, 2, 8);
 				}
 			});
 			textField_26.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -609,7 +609,7 @@ public class SudokuMainWindow {
 			textField_27.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_27);
+					provera(arg0, 3, 0);
 				}
 			});
 			textField_27.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -623,7 +623,7 @@ public class SudokuMainWindow {
 			textField_28.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_28);
+					provera(arg0, 3, 1);
 				}
 			});
 			textField_28.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -637,7 +637,7 @@ public class SudokuMainWindow {
 			textField_29.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_29);
+					provera(arg0, 3, 2);
 				}
 			});
 			textField_29.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -651,7 +651,7 @@ public class SudokuMainWindow {
 			textField_30.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_30);
+					provera(arg0, 4, 0);
 				}
 			});
 			textField_30.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -665,7 +665,7 @@ public class SudokuMainWindow {
 			textField_31.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_31);
+					provera(arg0, 4, 1);
 				}
 			});
 			textField_31.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -679,7 +679,7 @@ public class SudokuMainWindow {
 			textField_32.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_32);
+					provera(arg0, 4, 2);
 				}
 			});
 			textField_32.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -693,7 +693,7 @@ public class SudokuMainWindow {
 			textField_33.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_33);
+					provera(arg0, 5, 0);
 				}
 			});
 			textField_33.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -707,7 +707,7 @@ public class SudokuMainWindow {
 			textField_34.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_34);
+					provera(arg0, 5, 1);
 				}
 			});
 			textField_34.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -721,7 +721,7 @@ public class SudokuMainWindow {
 			textField_35.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_35);
+					provera(arg0, 5, 2);
 				}
 			});
 			textField_35.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -743,7 +743,7 @@ public class SudokuMainWindow {
 			textField_36.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_36);
+					provera(arg0, 3, 3);
 				}
 			});
 			textField_36.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -757,7 +757,7 @@ public class SudokuMainWindow {
 			textField_37.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_37);
+					provera(arg0, 3, 4);
 				}
 			});
 			textField_37.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -771,7 +771,7 @@ public class SudokuMainWindow {
 			textField_38.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_38);
+					provera(arg0, 3, 5);
 				}
 			});
 			textField_38.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -785,7 +785,7 @@ public class SudokuMainWindow {
 			textField_39.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_39);
+					provera(arg0, 4, 3);
 				}
 			});
 			textField_39.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -799,7 +799,7 @@ public class SudokuMainWindow {
 			textField_40.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_40);
+					provera(arg0, 4, 4);
 				}
 			});
 			textField_40.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -813,7 +813,7 @@ public class SudokuMainWindow {
 			textField_41.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_41);
+					provera(arg0, 4, 5);
 				}
 			});
 			textField_41.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -827,7 +827,7 @@ public class SudokuMainWindow {
 			textField_42.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_42);
+					provera(arg0, 5, 3);
 				}
 			});
 			textField_42.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -841,7 +841,7 @@ public class SudokuMainWindow {
 			textField_43.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_43);
+					provera(arg0, 5, 4);
 				}
 			});
 			textField_43.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -855,7 +855,7 @@ public class SudokuMainWindow {
 			textField_44.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_44);
+					provera(arg0, 5, 5);
 				}
 			});
 			textField_44.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -877,7 +877,7 @@ public class SudokuMainWindow {
 			textField_45.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_45);
+					provera(arg0, 3, 6);
 				}
 			});
 			textField_45.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -891,7 +891,7 @@ public class SudokuMainWindow {
 			textField_46.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_46);
+					provera(arg0, 3, 7);
 				}
 			});
 			textField_46.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -905,7 +905,7 @@ public class SudokuMainWindow {
 			textField_47.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_47);
+					provera(arg0, 3, 8);
 				}
 			});
 			textField_47.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -919,7 +919,7 @@ public class SudokuMainWindow {
 			textField_48.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_48);
+					provera(arg0, 4, 6);
 				}
 			});
 			textField_48.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -933,7 +933,7 @@ public class SudokuMainWindow {
 			textField_49.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_49);
+					provera(arg0, 4, 7);
 				}
 			});
 			textField_49.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -947,7 +947,7 @@ public class SudokuMainWindow {
 			textField_50.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_50);
+					provera(arg0, 4, 8);
 				}
 			});
 			textField_50.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -961,7 +961,7 @@ public class SudokuMainWindow {
 			textField_51.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_51);
+					provera(arg0, 5, 6);
 				}
 			});
 			textField_51.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -975,7 +975,7 @@ public class SudokuMainWindow {
 			textField_52.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_52);
+					provera(arg0, 5, 7);
 				}
 			});
 			textField_52.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -989,7 +989,7 @@ public class SudokuMainWindow {
 			textField_53.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_53);
+					provera(arg0, 5, 8);
 				}
 			});
 			textField_53.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1011,7 +1011,7 @@ public class SudokuMainWindow {
 			textField_54.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_54);
+					provera(arg0, 6, 0);
 				}
 			});
 			textField_54.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1025,7 +1025,7 @@ public class SudokuMainWindow {
 			textField_55.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_55);
+					provera(arg0, 6, 1);
 				}
 			});
 			textField_55.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1039,7 +1039,7 @@ public class SudokuMainWindow {
 			textField_56.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_56);
+					provera(arg0, 6, 2);
 				}
 			});
 			textField_56.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1053,7 +1053,7 @@ public class SudokuMainWindow {
 			textField_57.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_57);
+					provera(arg0, 7, 0);
 				}
 			});
 			textField_57.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1067,7 +1067,7 @@ public class SudokuMainWindow {
 			textField_58.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_58);
+					provera(arg0, 7, 1);
 				}
 			});
 			textField_58.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1081,7 +1081,7 @@ public class SudokuMainWindow {
 			textField_59.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_59);
+					provera(arg0, 7, 2);
 				}
 			});
 			textField_59.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1095,7 +1095,7 @@ public class SudokuMainWindow {
 			textField_60.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_60);
+					provera(arg0, 8, 0);
 				}
 			});
 			textField_60.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1109,7 +1109,7 @@ public class SudokuMainWindow {
 			textField_61.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_61);
+					provera(arg0, 8, 1);
 				}
 			});
 			textField_61.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1123,7 +1123,7 @@ public class SudokuMainWindow {
 			textField_62.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_62);
+					provera(arg0, 8, 2);
 				}
 			});
 			textField_62.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1145,7 +1145,7 @@ public class SudokuMainWindow {
 			textField_63.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_63);
+					provera(arg0, 6, 3);
 				}
 			});
 			textField_63.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1159,7 +1159,7 @@ public class SudokuMainWindow {
 			textField_64.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_64);
+					provera(arg0, 6, 4);
 				}
 			});
 			textField_64.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1173,7 +1173,7 @@ public class SudokuMainWindow {
 			textField_65.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_65);
+					provera(arg0, 6, 5);
 				}
 			});
 			textField_65.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1187,7 +1187,7 @@ public class SudokuMainWindow {
 			textField_66.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_66);
+					provera(arg0, 7, 3);
 				}
 			});
 			textField_66.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1201,7 +1201,7 @@ public class SudokuMainWindow {
 			textField_67.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_67);
+					provera(arg0, 7, 4);
 				}
 			});
 			textField_67.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1215,7 +1215,7 @@ public class SudokuMainWindow {
 			textField_68.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_68);
+					provera(arg0, 7, 5);
 				}
 			});
 			textField_68.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1229,7 +1229,7 @@ public class SudokuMainWindow {
 			textField_69.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_69);
+					provera(arg0, 8, 3);
 				}
 			});
 			textField_69.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1243,7 +1243,7 @@ public class SudokuMainWindow {
 			textField_70.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_70);
+					provera(arg0, 8, 4);
 				}
 			});
 			textField_70.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1257,7 +1257,7 @@ public class SudokuMainWindow {
 			textField_71.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_71);
+					provera(arg0, 8, 5);
 				}
 			});
 			textField_71.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1279,7 +1279,7 @@ public class SudokuMainWindow {
 			textField_72.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_72);
+					provera(arg0, 6, 6);
 				}
 			});
 			textField_72.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1293,7 +1293,7 @@ public class SudokuMainWindow {
 			textField_73.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_73);
+					provera(arg0, 6, 7);
 				}
 			});
 			textField_73.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1307,7 +1307,7 @@ public class SudokuMainWindow {
 			textField_74.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_74);
+					provera(arg0, 6, 8);
 				}
 			});
 			textField_74.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1321,7 +1321,7 @@ public class SudokuMainWindow {
 			textField_75.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_75);
+					provera(arg0, 7, 6);
 				}
 			});
 			textField_75.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1335,7 +1335,7 @@ public class SudokuMainWindow {
 			textField_76.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_76);
+					provera(arg0, 7, 7);
 				}
 			});
 			textField_76.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1349,7 +1349,7 @@ public class SudokuMainWindow {
 			textField_77.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_77);
+					provera(arg0, 7, 8);
 				}
 			});
 			textField_77.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1363,7 +1363,7 @@ public class SudokuMainWindow {
 			textField_78.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_78);
+					provera(arg0, 8, 6);
 				}
 			});
 			textField_78.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1377,7 +1377,7 @@ public class SudokuMainWindow {
 			textField_79.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_79);
+					provera(arg0, 8, 7);
 				}
 			});
 			textField_79.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1391,7 +1391,7 @@ public class SudokuMainWindow {
 			textField_80.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent arg0) {
-					provera(arg0, textField_80);
+					provera(arg0, 8, 8);
 				}
 			});
 			textField_80.setFont(new Font("Times New Roman", Font.PLAIN, 34));
@@ -1404,12 +1404,19 @@ public class SudokuMainWindow {
 		return panel9;
 	}
 
-	
-	private void provera(KeyEvent arg0, JTextField txt) {
+	/**
+	 * Metoda koja za odredjeno polje proverava da li je uneseni karakter dozvoljen i ukoliko nije bice ponisten,
+	 * ukoliko je dozvoljen bice unesen u niz brojeva.
+	 * @param arg0 argument koji se dobija od actionListener-a, sadrzi karakter koji se proverava
+	 * @param x predstavlja x koordinatu polja
+	 * @param y predstavlja y koordinatu polja
+	 */
+	private void provera(KeyEvent arg0, int x, int y) {
 		char c = arg0.getKeyChar();
-		  if (!((c >= '1') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)) || (txt.getText().length() >= 1)) {
+		  if (!((c >= '1') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)) || (matricaPolja[x][y].getText().length() >= 1)) {
 			  arg0.consume();
 		  } else {
+			  matricaBrojeva[x][y] = Integer.parseInt(arg0.getKeyChar() + "");
 		  }
 	}
 }
