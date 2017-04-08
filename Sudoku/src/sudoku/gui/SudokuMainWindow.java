@@ -6,11 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
+import sudoku.funkcije.Funkcije;
 import sudoku.generator.GeneratorProvera;
 
 import javax.swing.border.LineBorder;
-
-import funkcije.Funkcije;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,7 +20,6 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -287,7 +285,6 @@ public class SudokuMainWindow {
 			centralPanel.add(getPanel7(), "cell 0 2,grow");
 			centralPanel.add(getPanel8(), "cell 1 2,grow");
 			centralPanel.add(getPanel9(), "cell 2 2,grow");
-			centralPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getPanel1(), textField, textField_1, textField_2, textField_3, textField_4, textField_5, textField_6, textField_7, textField_8, getPanel2(), textField_9, textField_10, textField_11, textField_12, textField_13, textField_14, textField_15, textField_16, textField_17, getPanel3(), textField_18, textField_19, textField_20, textField_21, textField_22, textField_23, textField_24, textField_25, textField_26, getPanel4(), textField_27, textField_28, textField_29, textField_30, textField_31, textField_32, textField_33, textField_34, textField_35, getPanel5(), textField_36, textField_37, textField_38, textField_39, textField_40, textField_41, textField_42, textField_43, textField_44, getPanel6(), textField_45, textField_46, textField_47, textField_48, textField_49, textField_50, textField_51, textField_52, textField_53, getPanel7(), textField_54, textField_55, textField_56, textField_57, textField_58, textField_59, textField_60, textField_61, textField_62, getPanel8(), textField_63, textField_64, textField_65, textField_66, textField_67, textField_68, textField_69, textField_70, textField_71, getPanel9(), textField_72, textField_73, textField_74, textField_75, textField_76, textField_77, textField_78, textField_79, textField_80}));
 		}
 		return centralPanel;
 	}
@@ -316,7 +313,7 @@ public class SudokuMainWindow {
 			btnPause.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					Funkcije.stopiraj();
+					Funkcije.pause();
 				}
 			});
 			
@@ -1468,8 +1465,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						//Funkcije.pauziraj();
-						System.out.println("RADIIII!!!");
+						Funkcije.pauziraj();
 					}
 				}
 			});
@@ -1618,8 +1614,8 @@ public class SudokuMainWindow {
 			  arg0.consume();
 		  } else if ((c >= '1') && (c <= '9')) {
 			  gen.unesiBroj(Integer.parseInt(arg0.getKeyChar() + ""), x, y);
-		  }
-		  if(c==' ')
+		  } else if(c==' ') {
 			  Funkcije.pauziraj();
+		  }
 	}
 }
