@@ -10,6 +10,8 @@ import sudoku.generator.GeneratorProvera;
 
 import javax.swing.border.LineBorder;
 
+import funkcije.Funkcije;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -19,6 +21,15 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 
 /**
@@ -135,6 +146,8 @@ public class SudokuMainWindow {
 	private JTextField textField_78;
 	private JTextField textField_79;
 	private JTextField textField_80;
+	private JLabel lblTime;
+	private JTextField textTimeField;
 
 	/**
 	 * Launch the application.
@@ -164,13 +177,57 @@ public class SudokuMainWindow {
 	 */
 	private void initialize() {
 		frmSudokuGame = new JFrame();
-		frmSudokuGame.setTitle("Sudoku Game");
+		frmSudokuGame.getContentPane().addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyChar()==' ')
+					Funkcije.pauziraj();
+			}
+		});
+		frmSudokuGame.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyChar()==' ')
+					Funkcije.pauziraj();
+			}
+		});
 		frmSudokuGame.setResizable(false);
+		frmSudokuGame.setTitle("Sudoku Game");
 		frmSudokuGame.setBounds(100, 100, 564, 500);
 		frmSudokuGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSudokuGame.getContentPane().add(getSouthPanel(), BorderLayout.SOUTH);
 		frmSudokuGame.getContentPane().add(getCentralPanel(), BorderLayout.CENTER);
 		frmSudokuGame.getContentPane().add(getEastPanel(), BorderLayout.EAST);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmSudokuGame.setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmNewGame = new JMenuItem("New game");
+		mnFile.add(mntmNewGame);
+		
+		JMenuItem mntmOpenGame = new JMenuItem("Open game");
+		mnFile.add(mntmOpenGame);
+		
+		JMenuItem mntmSave = new JMenuItem("Save");
+		mnFile.add(mntmSave);
+		
+		JMenuItem mntmPausespace = new JMenuItem("Pause     (Space)");
+		mnFile.add(mntmPausespace);
+		
+		JMenuItem mntmReset = new JMenuItem("Reset");
+		mnFile.add(mntmReset);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mnFile.add(mntmExit);
+		
+		JMenu mnHighscore = new JMenu("Highscore");
+		menuBar.add(mnHighscore);
+		
+		JMenu mnAbout = new JMenu("About");
+		menuBar.add(mnAbout);
 		
 		
 		matricaPolja = new JTextField[][]{{textField, textField_1, textField_2, textField_9, textField_10, textField_11, textField_18, textField_19, textField_20},
@@ -187,6 +244,20 @@ public class SudokuMainWindow {
 	private JPanel getSouthPanel() {
 		if (southPanel == null) {
 			southPanel = new JPanel();
+			southPanel.addMouseListener(new MouseAdapter() {
+				
+				public void mouseClicked(MouseEvent e) {
+					southPanel.grabFocus();
+				}
+			});
+			
+			southPanel.addKeyListener(new KeyAdapter() {
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()== ' ')
+						Funkcije.pauziraj();
+				}
+			});
+			
 			southPanel.setLayout(new MigLayout("", "[]", "[]"));
 		}
 		return southPanel;
@@ -194,6 +265,18 @@ public class SudokuMainWindow {
 	private JPanel getCentralPanel() {
 		if (centralPanel == null) {
 			centralPanel = new JPanel();
+			centralPanel.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' ')
+						Funkcije.pauziraj();
+				}
+			});
+			centralPanel.setEnabled(false);
+			centralPanel.setFocusCycleRoot(true);
+			centralPanel.setToolTipText("");
+			
+			
 			centralPanel.setLayout(new MigLayout("", "[124.00,center][124.00][124.00]", "[124.00][124.00][124.00]"));
 			centralPanel.add(getPanel1(), "cell 0 0,grow");
 			centralPanel.add(getPanel2(), "cell 1 0,grow");
@@ -204,19 +287,62 @@ public class SudokuMainWindow {
 			centralPanel.add(getPanel7(), "cell 0 2,grow");
 			centralPanel.add(getPanel8(), "cell 1 2,grow");
 			centralPanel.add(getPanel9(), "cell 2 2,grow");
+			centralPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getPanel1(), textField, textField_1, textField_2, textField_3, textField_4, textField_5, textField_6, textField_7, textField_8, getPanel2(), textField_9, textField_10, textField_11, textField_12, textField_13, textField_14, textField_15, textField_16, textField_17, getPanel3(), textField_18, textField_19, textField_20, textField_21, textField_22, textField_23, textField_24, textField_25, textField_26, getPanel4(), textField_27, textField_28, textField_29, textField_30, textField_31, textField_32, textField_33, textField_34, textField_35, getPanel5(), textField_36, textField_37, textField_38, textField_39, textField_40, textField_41, textField_42, textField_43, textField_44, getPanel6(), textField_45, textField_46, textField_47, textField_48, textField_49, textField_50, textField_51, textField_52, textField_53, getPanel7(), textField_54, textField_55, textField_56, textField_57, textField_58, textField_59, textField_60, textField_61, textField_62, getPanel8(), textField_63, textField_64, textField_65, textField_66, textField_67, textField_68, textField_69, textField_70, textField_71, getPanel9(), textField_72, textField_73, textField_74, textField_75, textField_76, textField_77, textField_78, textField_79, textField_80}));
 		}
 		return centralPanel;
 	}
 	private JPanel getEastPanel() {
 		if (eastPanel == null) {
 			eastPanel = new JPanel();
-			eastPanel.setLayout(new MigLayout("", "[120.00]", "[]"));
+			
+			eastPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					eastPanel.grabFocus();
+				}
+			});
+			
+			eastPanel.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					char c = e.getKeyChar();
+					if(c == ' ')
+						Funkcije.pauziraj();
+				}
+			});
+			eastPanel.setLayout(new MigLayout("", "[120.00]", "[][][][][][][][][][][][][]"));
+			
+			JButton btnPause = new JButton("Pause");
+			btnPause.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					Funkcije.stopiraj();
+				}
+			});
+			
+			lblTime = new JLabel("Time:");
+			lblTime.setAlignmentX(Component.CENTER_ALIGNMENT);
+			eastPanel.add(lblTime, "flowx,cell 0 1");
+			btnPause.setActionCommand("Pause");
+			eastPanel.add(btnPause, "cell 0 11");
+			
+			textTimeField = new JTextField();
+			eastPanel.add(textTimeField, "cell 0 1");
+			textTimeField.setColumns(10);
 		}
 		return eastPanel;
 	}
 	private JPanel getPanel1() {
 		if (panel1 == null) {
 			panel1 = new JPanel();
+			
+			panel1.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' ')
+						Funkcije.pauziraj();
+				}
+			});
 			panel1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			panel1.setLayout(null);
 			
@@ -351,6 +477,13 @@ public class SudokuMainWindow {
 	private JPanel getPanel2() {
 		if (panel2 == null) {
 			panel2 = new JPanel();
+			panel2.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' ')
+						Funkcije.pauziraj();
+				}
+			});
 			panel2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			panel2.setLayout(null);
 			
@@ -485,6 +618,13 @@ public class SudokuMainWindow {
 	private JPanel getPanel3() {
 		if (panel3 == null) {
 			panel3 = new JPanel();
+			panel3.addKeyListener(new KeyAdapter() {
+				
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' ')
+						Funkcije.pauziraj();
+				}
+			});
 			panel3.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			panel3.setLayout(null);
 			
@@ -619,6 +759,13 @@ public class SudokuMainWindow {
 	private JPanel getPanel4() {
 		if (panel4 == null) {
 			panel4 = new JPanel();
+			panel4.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' ')
+						Funkcije.pauziraj();
+				}
+			});
 			panel4.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2), null));
 			panel4.setLayout(null);
 			
@@ -753,6 +900,13 @@ public class SudokuMainWindow {
 	private JPanel getPanel5() {
 		if (panel5 == null) {
 			panel5 = new JPanel();
+			panel5.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' ')
+						Funkcije.pauziraj();
+				}
+			});
 			panel5.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			panel5.setLayout(null);
 			
@@ -887,6 +1041,13 @@ public class SudokuMainWindow {
 	private JPanel getPanel6() {
 		if (panel6 == null) {
 			panel6 = new JPanel();
+			panel6.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' ')
+						Funkcije.pauziraj();
+				}
+			});
 			panel6.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			panel6.setLayout(null);
 			
@@ -1021,6 +1182,13 @@ public class SudokuMainWindow {
 	private JPanel getPanel7() {
 		if (panel7 == null) {
 			panel7 = new JPanel();
+			panel7.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' ')
+						Funkcije.pauziraj();
+				}
+			});
 			panel7.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			panel7.setLayout(null);
 			
@@ -1155,6 +1323,13 @@ public class SudokuMainWindow {
 	private JPanel getPanel8() {
 		if (panel8 == null) {
 			panel8 = new JPanel();
+			panel8.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' ')
+						Funkcije.pauziraj();
+				}
+			});
 			panel8.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			panel8.setLayout(null);
 			
@@ -1289,6 +1464,15 @@ public class SudokuMainWindow {
 	private JPanel getPanel9() {
 		if (panel9 == null) {
 			panel9 = new JPanel();
+			panel9.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(e.getKeyChar()==' '){
+						//Funkcije.pauziraj();
+						System.out.println("RADIIII!!!");
+					}
+				}
+			});
 			panel9.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 			panel9.setLayout(null);
 			
@@ -1435,5 +1619,7 @@ public class SudokuMainWindow {
 		  } else if ((c >= '1') && (c <= '9')) {
 			  gen.unesiBroj(Integer.parseInt(arg0.getKeyChar() + ""), x, y);
 		  }
+		  if(c==' ')
+			  Funkcije.pauziraj();
 	}
 }
