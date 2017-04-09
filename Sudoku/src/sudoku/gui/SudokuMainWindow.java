@@ -23,6 +23,9 @@ import java.awt.event.KeyEvent;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -49,6 +52,34 @@ public class SudokuMainWindow {
 	 * Objekat klase GeneratorProvera.
 	 */
 	GeneratorProvera gen = new GeneratorProvera();
+	
+
+	public static int sekunde = 0;
+	public static int minuti = 0;
+	public static int sati = 0;
+	
+	public static Timer tajmer = new Timer();
+	
+	public static TimerTask ispisiVreme = new TimerTask(){
+		
+		public void run(){
+			sekunde++;
+			if(sekunde==60){
+				sekunde=0;
+				minuti++;
+			}
+			if(minuti==60){
+				minuti=0;
+				sati++;
+			}
+			textTimeField.setText(sati+":"+minuti+":"+sekunde);
+		}
+		
+	};
+	
+	public static void pokreniTajmer(Timer tajmer){
+		tajmer.scheduleAtFixedRate(ispisiVreme,1000,1000);
+	}
 	
 	private JFrame frmSudokuGame;
 	private JPanel southPanel;
@@ -145,8 +176,8 @@ public class SudokuMainWindow {
 	private JTextField textField_79;
 	private JTextField textField_80;
 	private JLabel lblTime;
-	private JTextField textTimeField;
-
+	public static JTextField textTimeField;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -161,6 +192,8 @@ public class SudokuMainWindow {
 				}
 			}
 		});
+		pokreniTajmer(tajmer);
+
 	}
 
 	/**
@@ -179,14 +212,14 @@ public class SudokuMainWindow {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyChar()==' ')
-					Funkcije.pauziraj();
+					Funkcije.pauziraj(tajmer);
 			}
 		});
 		frmSudokuGame.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyChar()==' ')
-					Funkcije.pauziraj();
+					Funkcije.pauziraj(tajmer);
 			}
 		});
 		frmSudokuGame.setResizable(false);
@@ -204,24 +237,66 @@ public class SudokuMainWindow {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmNewGame = new JMenuItem("New game");
+		mntmNewGame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				Funkcije.newGame();
+			}
+		});
 		mnFile.add(mntmNewGame);
 		
 		JMenuItem mntmOpenGame = new JMenuItem("Open game");
+		mntmOpenGame.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Funkcije.openGame();
+			}
+		});
 		mnFile.add(mntmOpenGame);
 		
 		JMenuItem mntmSave = new JMenuItem("Save");
+		mntmSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Funkcije.save();
+			}
+		});
 		mnFile.add(mntmSave);
 		
 		JMenuItem mntmPausespace = new JMenuItem("Pause     (Space)");
+		mntmPausespace.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Funkcije.pause(tajmer);
+			}
+		});
 		mnFile.add(mntmPausespace);
 		
 		JMenuItem mntmReset = new JMenuItem("Reset");
+		mntmReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Funkcije.reset();
+			}
+		});
 		mnFile.add(mntmReset);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				frmSudokuGame.dispose();
+			}
+		});
 		mnFile.add(mntmExit);
 		
 		JMenu mnHighscore = new JMenu("Highscore");
+		mnHighscore.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Funkcije.highScore();
+			}
+		});
 		menuBar.add(mnHighscore);
 		
 		JMenu mnAbout = new JMenu("About");
@@ -252,7 +327,7 @@ public class SudokuMainWindow {
 			southPanel.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()== ' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			
@@ -267,7 +342,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			centralPanel.setEnabled(false);
@@ -304,7 +379,7 @@ public class SudokuMainWindow {
 				public void keyPressed(KeyEvent e) {
 					char c = e.getKeyChar();
 					if(c == ' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			eastPanel.setLayout(new MigLayout("", "[120.00]", "[][][][][][][][][][][][][]"));
@@ -313,7 +388,7 @@ public class SudokuMainWindow {
 			btnPause.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					Funkcije.pause();
+					Funkcije.pause(tajmer);
 				}
 			});
 			
@@ -337,7 +412,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			panel1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -478,7 +553,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			panel2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -619,7 +694,7 @@ public class SudokuMainWindow {
 				
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			panel3.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -760,7 +835,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			panel4.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 2), null));
@@ -901,7 +976,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			panel5.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -1042,7 +1117,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			panel6.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -1183,7 +1258,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			panel7.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -1324,7 +1399,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' ')
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 				}
 			});
 			panel8.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -1465,7 +1540,7 @@ public class SudokuMainWindow {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pauziraj();
+						Funkcije.pauziraj(tajmer);
 					}
 				}
 			});
@@ -1614,8 +1689,9 @@ public class SudokuMainWindow {
 			  arg0.consume();
 		  } else if ((c >= '1') && (c <= '9')) {
 			  gen.unesiBroj(Integer.parseInt(arg0.getKeyChar() + ""), x, y);
-		  } else if(c==' ') {
-			  Funkcije.pauziraj();
+		  }
+		  if(c==' ') {
+			  Funkcije.pauziraj(tajmer);
 		  }
 	}
 }
