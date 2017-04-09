@@ -16,11 +16,9 @@ public class Funkcije {
 	public static void pauziraj(Timer tajmer) {
 		if(pauza){
 			pause(tajmer);
-			pauza = false;
 			return;
 		}
 		nastavi();
-		pauza=true;
 	}
 	
 	public static void pause(Timer tajmer) {
