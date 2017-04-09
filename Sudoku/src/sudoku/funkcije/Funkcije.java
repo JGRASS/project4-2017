@@ -1,9 +1,13 @@
 package sudoku.funkcije;
 
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import sudoku.gui.SudokuMainWindow;
+
+import javax.swing.JTextField;
+
 
 public class Funkcije {
 	
@@ -59,6 +63,7 @@ public class Funkcije {
 		pause(SudokuMainWindow.tajmer);
 		nastavi();
 		
+		
 	}
 	
 	public static void save() {
@@ -77,8 +82,23 @@ public class Funkcije {
 		
 	}
 	
-	public static void zakljucaj() {
-		
+	public static void otkljucajSvaIZakljucajGenerisana(JTextField[][] matricaPolja, int[][] matricaGenerisanih, int brojGenerisanih) {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				matricaPolja[i][j].setEnabled(true);
+			}
+		}
+		for (int i = 0; i < brojGenerisanih; i++) {
+			matricaPolja[matricaGenerisanih[0][i]][matricaGenerisanih[1][i]].setEnabled(false);
+		}
+	}
+	
+	public static void ispisMatriceUInterfejs(JTextField[][] matricaPolja, int[][] matrica) {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				matricaPolja[i][j].setText(matrica[i][j] + "");
+			}
+		}
 	}
 	
 }
