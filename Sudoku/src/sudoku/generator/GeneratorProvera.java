@@ -183,44 +183,44 @@ public class GeneratorProvera {
 	 * Metoda koja generise pocetne vrednosti za sudoku igru.
 	 */
 	public void generisati() {
-//		obrisiMatricu();
-//		brojGenerisanih = 0;
-//		
-//		Random r = new Random();
-//		int c=1;
-//		while (brojGenerisanih <=71) {
-//			brojGenerisanih = 0;
-//			obrisiMatricu();
-//			int x=9;
-//
-//			for (int i = 0; i < 9; i++) {
-//				if(x<8){break;}
-//				x=0;
-//				for (int l = 0; l < 9; l++) {
-//					int b = r.nextInt(9);
-//					/*int brojac = 0;
-//					while (uRedu(b, i) || uKoloni(b, l) || uKvadratu(b, i, l)) {
-//						b = r.nextInt(9);
-//						brojac++;
-//						if (brojac ==20) {
-//							c=2;
-//							
-//							break;
-//						}
-//						c=1;
-//					}*/
-//					//if(c==1){
-//					if (!uRedu(b, i) && !uKoloni(b, l) && !uKvadratu(b, i, l)) {
-//						matrica[i][l] = b;
-//						x++;
-//						brojGenerisanih++;
-//					}//}
-//
-//				}
-//			}
-//
-//		}
-//		napuniMatricuGenerisanih(brojGenerisanih);
+		obrisiMatricu();
+		brojGenerisanih = 0;
+	
+		Random r = new Random();
+		int c=1;
+		while (brojGenerisanih <81) {
+			brojGenerisanih = 0;
+			obrisiMatricu();
+			int x=9;
+
+			for (int i = 0; i < 9; i++) {
+				if(x<9){break;}
+				x=0;
+				for (int l = 0; l < 9; l++) {
+					int b = r.nextInt(9);
+				int brojac = 0;
+					while (uRedu(b, i) || uKoloni(b, l) || uKvadratu(b, i, l)) {
+						b = 1+r.nextInt(9);
+						brojac++;
+						if (brojac ==20) {
+							c=2;
+							
+							break;
+						}
+						c=1;
+					}
+					if(c==1){
+					//if (!uRedu(b, i) && !uKoloni(b, l) && !uKvadratu(b, i, l)) {
+						matrica[i][l] = b;
+						x++;
+						brojGenerisanih++;
+					}//}
+
+				}
+			}
+
+		}
+		napuniMatricuGenerisanih(brojGenerisanih);
 	}
 
 	/**
