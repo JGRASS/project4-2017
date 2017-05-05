@@ -72,7 +72,7 @@ public class SudokuMainWindow {
 				minuti=0;
 				sati++;
 			}
-			textTimeField.setText(sati+":"+minuti+":"+sekunde);
+			SudokuMainWindow.textTimeField.setText(sati+":"+minuti+":"+sekunde);
 		}
 		
 	};
@@ -240,7 +240,7 @@ public class SudokuMainWindow {
 		mntmNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				Funkcije.newGame();
+				Funkcije.newGame(matricaPolja, gen);
 			}
 		});
 		mnFile.add(mntmNewGame);
@@ -285,7 +285,7 @@ public class SudokuMainWindow {
 		mntmExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				frmSudokuGame.dispose();
+				System.exit(0);
 			}
 		});
 		mnFile.add(mntmExit);
@@ -311,7 +311,12 @@ public class SudokuMainWindow {
 									  {textField_33, textField_34, textField_35, textField_42, textField_43, textField_44, textField_51, textField_52, textField_53},
 									  {textField_54, textField_55, textField_56, textField_63, textField_64, textField_65, textField_72, textField_73, textField_74},
 									  {textField_57, textField_58, textField_59, textField_66, textField_67, textField_68, textField_75, textField_76, textField_77},
-									  {textField_60, textField_61, textField_62, textField_69, textField_70 ,textField_71, textField_78, textField_79, textField_80}};
+									  {textField_60, textField_61, textField_62, textField_69, textField_70 ,textField_71, textField_78, textField_79, textField_80}
+		};
+		
+		Funkcije.newGame(matricaPolja, gen);
+									  
+									  
 	}
 
 	private JPanel getSouthPanel() {
@@ -384,6 +389,15 @@ public class SudokuMainWindow {
 			});
 			eastPanel.setLayout(new MigLayout("", "[120.00]", "[][][][][][][][][][][][][]"));
 			
+			lblTime = new JLabel("Time:");
+			lblTime.setAlignmentX(Component.CENTER_ALIGNMENT);
+			eastPanel.add(lblTime, "flowx,cell 0 1");
+			
+			textTimeField = new JTextField();
+			textTimeField.setEditable(false);
+			eastPanel.add(textTimeField, "cell 0 1");
+			textTimeField.setColumns(10);
+			
 			JButton btnPause = new JButton("Pause");
 			btnPause.addMouseListener(new MouseAdapter() {
 				@Override
@@ -391,16 +405,17 @@ public class SudokuMainWindow {
 					Funkcije.pause(tajmer);
 				}
 			});
-			
-			lblTime = new JLabel("Time:");
-			lblTime.setAlignmentX(Component.CENTER_ALIGNMENT);
-			eastPanel.add(lblTime, "flowx,cell 0 1");
 			btnPause.setActionCommand("Pause");
-			eastPanel.add(btnPause, "cell 0 11");
+			eastPanel.add(btnPause, "cell 0 3");
 			
-			textTimeField = new JTextField();
-			eastPanel.add(textTimeField, "cell 0 1");
-			textTimeField.setColumns(10);
+			JButton btnCheck = new JButton("Check");
+			btnCheck.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent arg0) {
+					
+				}
+			});
+			eastPanel.add(btnCheck, "cell 0 5");
 		}
 		return eastPanel;
 	}

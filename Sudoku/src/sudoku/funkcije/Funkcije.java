@@ -4,6 +4,7 @@ package sudoku.funkcije;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import sudoku.generator.GeneratorProvera;
 import sudoku.gui.SudokuMainWindow;
 
 import javax.swing.JTextField;
@@ -53,7 +54,7 @@ public class Funkcije {
 		
 	}
 	
-	public static void newGame() {
+	public static void newGame(JTextField[][] matricaPolja, GeneratorProvera gen) {
 		
 		SudokuMainWindow.sekunde=0;
 		SudokuMainWindow.minuti=0;
@@ -61,7 +62,9 @@ public class Funkcije {
 		pause(SudokuMainWindow.tajmer);
 		nastavi();
 		
-		
+		gen.generisati();
+		Funkcije.otkljucajSvaIZakljucajGenerisana(matricaPolja, gen.getMatricaGenerisanih(), gen.getBrojGenerisanih());
+		Funkcije.ispisMatriceUInterfejs(matricaPolja, gen.getMatrica());
 	}
 	
 	public static void save() {
@@ -83,18 +86,27 @@ public class Funkcije {
 	public static void otkljucajSvaIZakljucajGenerisana(JTextField[][] matricaPolja, int[][] matricaGenerisanih, int brojGenerisanih) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				matricaPolja[i][j].setEnabled(true);
+				matricaPolja[i][j].setEditable(true);
 			}
 		}
 		for (int i = 0; i < brojGenerisanih; i++) {
-			matricaPolja[matricaGenerisanih[0][i]][matricaGenerisanih[1][i]].setEnabled(false);
+			matricaPolja[matricaGenerisanih[0][i]][matricaGenerisanih[1][i]].setEditable(false);
 		}
 	}
 	
 	public static void ispisMatriceUInterfejs(JTextField[][] matricaPolja, int[][] matrica) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				matricaPolja[i][j].setText(matrica[i][j] + "");
+				matricaPolja[i][j].setText("");
+			}
+		}
+		
+		
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (matrica[i][j] != 0) {
+					matricaPolja[i][j].setText(matrica[i][j] + "");
+				}
 			}
 		}
 	}

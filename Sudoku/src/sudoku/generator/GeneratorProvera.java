@@ -17,10 +17,9 @@ public class GeneratorProvera {
 	 * Matrica svih brojeva koji su generisani ili uneseni od strane igraca.
 	 */
 	int[][] matrica = new int[9][9];
-	
-	
+
 	int[][] matricaGenerisanih;
-	
+
 	int brojGenerisanih;
 
 	/**
@@ -184,32 +183,44 @@ public class GeneratorProvera {
 	 * Metoda koja generise pocetne vrednosti za sudoku igru.
 	 */
 	public void generisati() {
-		obrisiMatricu();
-		brojGenerisanih = 0;
-		for (int j = 0; j < 9; j += 3) {
-			for (int k = 0; k < 9; k += 3) {
-				Random r = new Random();
-				int a = 2 + r.nextInt(3);
-				int niz[] = new int[a];
-				int niz1[] = new int[a];
-				int brel = 0;
-				for (int i = 0; i < a; i++) {
-					niz[brel] = j + r.nextInt(3);
-					niz1[brel] = k + r.nextInt(3);
-					brel++;
-				}
-				for (int i = 0; i < a; i++) {
-					int b = r.nextInt(9);
-					while (uRedu(b, niz[i]) || uKoloni(b, niz1[i]) || uKvadratu(b, niz[i], niz1[i])) {
-						b = r.nextInt(9);
-					}
-					matrica[niz[i]][niz1[i]] = b;
-					brojGenerisanih++;
-
-				}
-				napuniMatricuGenerisanih(brojGenerisanih);
-			}
-		}
+//		obrisiMatricu();
+//		brojGenerisanih = 0;
+//		
+//		Random r = new Random();
+//		int c=1;
+//		while (brojGenerisanih <=71) {
+//			brojGenerisanih = 0;
+//			obrisiMatricu();
+//			int x=9;
+//
+//			for (int i = 0; i < 9; i++) {
+//				if(x<8){break;}
+//				x=0;
+//				for (int l = 0; l < 9; l++) {
+//					int b = r.nextInt(9);
+//					/*int brojac = 0;
+//					while (uRedu(b, i) || uKoloni(b, l) || uKvadratu(b, i, l)) {
+//						b = r.nextInt(9);
+//						brojac++;
+//						if (brojac ==20) {
+//							c=2;
+//							
+//							break;
+//						}
+//						c=1;
+//					}*/
+//					//if(c==1){
+//					if (!uRedu(b, i) && !uKoloni(b, l) && !uKvadratu(b, i, l)) {
+//						matrica[i][l] = b;
+//						x++;
+//						brojGenerisanih++;
+//					}//}
+//
+//				}
+//			}
+//
+//		}
+//		napuniMatricuGenerisanih(brojGenerisanih);
 	}
 
 	/**
@@ -263,12 +274,28 @@ public class GeneratorProvera {
 		matricaGenerisanih = new int[2][brojGenerisanih];
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				if(matrica[i][j] != 0) {
+				if (matrica[i][j] != 0) {
 					matricaGenerisanih[0][trenutnaPozicija] = i;
 					matricaGenerisanih[1][trenutnaPozicija] = j;
 					trenutnaPozicija++;
 				}
 			}
 		}
+	}
+
+	public int[][] getMatricaGenerisanih() {
+		return matricaGenerisanih;
+	}
+
+	public void setMatricaGenerisanih(int[][] matricaGenerisanih) {
+		this.matricaGenerisanih = matricaGenerisanih;
+	}
+
+	public int getBrojGenerisanih() {
+		return brojGenerisanih;
+	}
+
+	public void setBrojGenerisanih(int brojGenerisanih) {
+		this.brojGenerisanih = brojGenerisanih;
 	}
 }
