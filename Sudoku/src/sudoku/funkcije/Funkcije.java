@@ -97,39 +97,39 @@ public class Funkcije {
 			int count;
 				switch (i) {
 				case 1: 
-					count = 3 + rnd.nextInt(3);
+					count = 3 + rnd.nextInt(1);
 					obrisiRandomPoljaUDatomRasponu(count, 0, 2, 0, 2, matrica);
 					break;
 				case 2:  
-					count = 3 + rnd.nextInt(3);
+					count = 2 + rnd.nextInt(2);
 					obrisiRandomPoljaUDatomRasponu(count, 3, 5, 0, 2, matrica);
 					break;
 				case 3: 
-					count = 3 + rnd.nextInt(3);
+					count = 2 + rnd.nextInt(2);
 					obrisiRandomPoljaUDatomRasponu(count, 6, 8, 0, 2, matrica);
 					break;
 				case 4: 
-					count = 3 + rnd.nextInt(3);
+					count = 2 + rnd.nextInt(2);
 					obrisiRandomPoljaUDatomRasponu(count, 0, 2, 3, 5, matrica);
 					break;
 				case 5: 
-					count = 3 + rnd.nextInt(3);
+					count = 2 + rnd.nextInt(2);
 					obrisiRandomPoljaUDatomRasponu(count, 3, 5, 3, 5, matrica);
 					break;
 				case 6: 
-					count = 3 + rnd.nextInt(3);
+					count = 2 + rnd.nextInt(2);
 					obrisiRandomPoljaUDatomRasponu(count, 6, 6, 3, 5, matrica);
 					break;
 				case 7: 
-					count = 3 + rnd.nextInt(3);
+					count = 2 + rnd.nextInt(2);
 					obrisiRandomPoljaUDatomRasponu(count, 0, 2, 6, 8, matrica);
 					break;
 				case 8: 
-					count = 3 + rnd.nextInt(3);
+					count = 2 + rnd.nextInt(2);
 					obrisiRandomPoljaUDatomRasponu(count, 3, 5, 6, 8, matrica);
 					break;
 				case 9: 
-					count = 3 + rnd.nextInt(3);
+					count = 2 + rnd.nextInt(2);
 					obrisiRandomPoljaUDatomRasponu(count, 6, 8, 6, 8, matrica);
 					break;
 				default:
@@ -172,6 +172,24 @@ public class Funkcije {
 				}
 			}
 		}
+	}
+	
+	public static boolean proveraSudokua(JTextField[][] matricaPolja, Polje [][] matrica){
+		
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if(!(matricaPolja[i][j].getText().equals(""))){
+				if (Integer.parseInt(matricaPolja[i][j].getText())!=matrica[i][j].getGenerisanaVrednost()) {
+					return false;
+				}
+			}
+				
+				else{
+					return false;
+				}
+		}}
+		
+		return true;
 	}
 	
 }

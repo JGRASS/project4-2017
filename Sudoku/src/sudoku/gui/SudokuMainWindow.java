@@ -29,8 +29,11 @@ import java.util.TimerTask;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 /**
@@ -420,6 +423,22 @@ public class SudokuMainWindow {
 			eastPanel.add(btnPause, "cell 0 3,alignx center");
 			
 			JButton btnCheck = new JButton("Check");
+			btnCheck.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					
+					if(Funkcije.proveraSudokua(matricaPolja, gen.getMatrica())){
+					
+						JOptionPane.showMessageDialog(null,"Uspesto ste resili sudoku!","Bravo",JOptionPane.INFORMATION_MESSAGE);
+						Funkcije.pause(tajmer);
+						
+					}
+					else{
+						Funkcije.pause(tajmer);
+						JOptionPane.showMessageDialog(null,"Pokusajte ponovo!","Greska",JOptionPane.ERROR_MESSAGE);
+						Funkcije.pauziraj(tajmer);
+					}
+				}
+			});
 			btnCheck.setPreferredSize(new Dimension(100, 23));
 			btnCheck.addMouseListener(new MouseAdapter() {
 				@Override
