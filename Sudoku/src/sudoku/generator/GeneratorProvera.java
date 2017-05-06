@@ -2,6 +2,8 @@ package sudoku.generator;
 
 import java.util.Random;
 
+import sudoku.Polje;
+
 /**
  * 
  * Klasa koja sadrzi matricu brojeva koji se koriste u trenutnoj igri, metode za
@@ -16,11 +18,15 @@ public class GeneratorProvera {
 	/**
 	 * Matrica svih brojeva koji su generisani ili uneseni od strane igraca.
 	 */
-	int[][] matrica = new int[9][9];
-
-	int[][] matricaGenerisanih;
-
-	int brojGenerisanih;
+	private Polje[][] matrica = new Polje[9][9];
+	
+	public GeneratorProvera() {
+		for (int i = 0; i < matrica.length; i++) {
+			for (int j = 0; j < matrica.length; j++) {
+				matrica[i][j] = new Polje(0, 0, false);
+			}
+		}
+	}
 
 	/**
 	 * Metoda koja proverava da li zadati broj postoji u istom redu u matrici.
@@ -34,7 +40,7 @@ public class GeneratorProvera {
 	 */
 	public boolean uRedu(int broj, int red) {
 		for (int i = 0; i < 9; i++) {
-			if (matrica[red][i] == broj) {
+			if (matrica[red][i].getGenerisanaVrednost() == broj || matrica[red][i].getUnesenaVrednost() == broj) {
 				return true;
 			}
 		}
@@ -54,7 +60,7 @@ public class GeneratorProvera {
 	 */
 	public boolean uKoloni(int broj, int kolona) {
 		for (int i = 0; i < 9; i++) {
-			if (matrica[i][kolona] == broj) {
+			if (matrica[i][kolona].getGenerisanaVrednost() == broj || matrica[i][kolona].getUnesenaVrednost() == broj) {
 				return true;
 			}
 		}
@@ -83,7 +89,7 @@ public class GeneratorProvera {
 			if (kolona < 3) {
 				for (int i = 0; i < 3; i++) {
 					for (int j = 0; j < 3; j++) {
-						if (matrica[i][j] == broj) {
+						if (matrica[i][j].getGenerisanaVrednost() == broj || matrica[i][j].getUnesenaVrednost() == broj) {
 							return true;
 						}
 
@@ -93,7 +99,7 @@ public class GeneratorProvera {
 			if (kolona > 2 && kolona < 6) {
 				for (int i = 0; i < 3; i++) {
 					for (int j = 3; j < 6; j++) {
-						if (matrica[i][j] == broj) {
+						if (matrica[i][j].getGenerisanaVrednost() == broj || matrica[i][j].getUnesenaVrednost() == broj) {
 							return true;
 						}
 
@@ -103,7 +109,7 @@ public class GeneratorProvera {
 			if (kolona > 5) {
 				for (int i = 0; i < 3; i++) {
 					for (int j = 6; j < 9; j++) {
-						if (matrica[i][j] == broj) {
+						if (matrica[i][j].getGenerisanaVrednost() == broj || matrica[i][j].getUnesenaVrednost() == broj) {
 							return true;
 						}
 
@@ -115,7 +121,7 @@ public class GeneratorProvera {
 			if (kolona < 3) {
 				for (int i = 3; i < 6; i++) {
 					for (int j = 0; j < 3; j++) {
-						if (matrica[i][j] == broj) {
+						if (matrica[i][j].getGenerisanaVrednost() == broj || matrica[i][j].getUnesenaVrednost() == broj) {
 							return true;
 						}
 
@@ -125,7 +131,7 @@ public class GeneratorProvera {
 			if (kolona > 2 && kolona < 6) {
 				for (int i = 3; i < 6; i++) {
 					for (int j = 3; j < 6; j++) {
-						if (matrica[i][j] == broj) {
+						if (matrica[i][j].getGenerisanaVrednost() == broj || matrica[i][j].getUnesenaVrednost() == broj) {
 							return true;
 						}
 
@@ -135,7 +141,7 @@ public class GeneratorProvera {
 			if (kolona > 5) {
 				for (int i = 3; i < 6; i++) {
 					for (int j = 6; j < 9; j++) {
-						if (matrica[i][j] == broj) {
+						if (matrica[i][j].getGenerisanaVrednost() == broj || matrica[i][j].getUnesenaVrednost() == broj) {
 							return true;
 						}
 
@@ -147,7 +153,7 @@ public class GeneratorProvera {
 			if (kolona < 3) {
 				for (int i = 6; i < 9; i++) {
 					for (int j = 0; j < 3; j++) {
-						if (matrica[i][j] == broj) {
+						if (matrica[i][j].getGenerisanaVrednost() == broj || matrica[i][j].getUnesenaVrednost() == broj) {
 							return true;
 						}
 
@@ -157,7 +163,7 @@ public class GeneratorProvera {
 			if (kolona > 2 && kolona < 6) {
 				for (int i = 6; i < 9; i++) {
 					for (int j = 3; j < 6; j++) {
-						if (matrica[i][j] == broj) {
+						if (matrica[i][j].getGenerisanaVrednost() == broj || matrica[i][j].getUnesenaVrednost() == broj) {
 							return true;
 						}
 
@@ -167,7 +173,7 @@ public class GeneratorProvera {
 			if (kolona > 5) {
 				for (int i = 6; i < 9; i++) {
 					for (int j = 6; j < 9; j++) {
-						if (matrica[i][j] == broj) {
+						if (matrica[i][j].getGenerisanaVrednost() == broj || matrica[i][j].getUnesenaVrednost() == broj) {
 							return true;
 						}
 
@@ -184,7 +190,7 @@ public class GeneratorProvera {
 	 */
 	public void generisati() {
 		obrisiMatricu();
-		brojGenerisanih = 0;
+		int brojGenerisanih = 0;
 	
 		Random r = new Random();
 		int c=1;
@@ -202,25 +208,24 @@ public class GeneratorProvera {
 					while (uRedu(b, i) || uKoloni(b, l) || uKvadratu(b, i, l)) {
 						b = 1+r.nextInt(9);
 						brojac++;
-						if (brojac ==20) {
+						if (brojac == 20) {
 							c=2;
 							
 							break;
 						}
 						c=1;
 					}
+					//if (!uRedu(b, i) && !uKoloni(b, l) && !uKvadratu(b, i, l))
 					if(c==1){
-					//if (!uRedu(b, i) && !uKoloni(b, l) && !uKvadratu(b, i, l)) {
-						matrica[i][l] = b;
+						matrica[i][l].setGenerisanaVrednost(b);
 						x++;
 						brojGenerisanih++;
-					}//}
+					}
 
 				}
 			}
 
 		}
-		napuniMatricuGenerisanih(brojGenerisanih);
 	}
 
 	/**
@@ -235,7 +240,7 @@ public class GeneratorProvera {
 	 *            koordinata kolone gde treba uneti broj;
 	 */
 	public void unesiBroj(int broj, int x, int y) {
-		matrica[x][y] = broj;
+		matrica[x][y].setUnesenaVrednost(broj);
 
 	}
 
@@ -245,57 +250,18 @@ public class GeneratorProvera {
 	public void obrisiMatricu() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				matrica[i][j] = 0;
+				matrica[i][j].setGenerisanaVrednost(0);
+				matrica[i][j].setUnesenaVrednost(0);
+				matrica[i][j].setZakljucano(false);
 			}
 		}
 	}
 
-	/**
-	 * Metoda koja vraca celokupnu matricu trenutne igre.
-	 * 
-	 * @return vraca se cela matrica.
-	 */
-	public int[][] getMatrica() {
+	public Polje[][] getMatrica() {
 		return matrica;
 	}
 
-	/**
-	 * Metoda kojom se zadata matrica unosi u trenutnu igru.
-	 * 
-	 * @param matrica
-	 *            zeljena matrica koja se unosi u trenutnu igru.
-	 */
-	public void setMatrica(int[][] matrica) {
+	public void setMatrica(Polje[][] matrica) {
 		this.matrica = matrica;
-	}
-
-	private void napuniMatricuGenerisanih(int brojGenerisanih) {
-		int trenutnaPozicija = 0;
-		matricaGenerisanih = new int[2][brojGenerisanih];
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if (matrica[i][j] != 0) {
-					matricaGenerisanih[0][trenutnaPozicija] = i;
-					matricaGenerisanih[1][trenutnaPozicija] = j;
-					trenutnaPozicija++;
-				}
-			}
-		}
-	}
-
-	public int[][] getMatricaGenerisanih() {
-		return matricaGenerisanih;
-	}
-
-	public void setMatricaGenerisanih(int[][] matricaGenerisanih) {
-		this.matricaGenerisanih = matricaGenerisanih;
-	}
-
-	public int getBrojGenerisanih() {
-		return brojGenerisanih;
-	}
-
-	public void setBrojGenerisanih(int brojGenerisanih) {
-		this.brojGenerisanih = brojGenerisanih;
 	}
 }

@@ -44,7 +44,7 @@ import javax.swing.JLabel;
 public class SudokuMainWindow {
 
 	/**
-	 * Matrica koja sadrzi sva polja za sudoku tabelu.
+	 * Matrica koja sadrzi sva graficka polja za sudoku tabelu.
 	 */
 	private JTextField[][] matricaPolja;
 	
@@ -177,6 +177,7 @@ public class SudokuMainWindow {
 	private JTextField textField_80;
 	private JLabel lblTime;
 	public static JTextField textTimeField;
+	private JMenuItem mntmScoreboard;
 	
 	/**
 	 * Launch the application.
@@ -291,13 +292,16 @@ public class SudokuMainWindow {
 		mnFile.add(mntmExit);
 		
 		JMenu mnHighscore = new JMenu("Highscore");
-		mnHighscore.addMouseListener(new MouseAdapter() {
+		menuBar.add(mnHighscore);
+		
+		mntmScoreboard = new JMenuItem("Scoreboard");
+		mntmScoreboard.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseClicked(MouseEvent arg0) {
 				Funkcije.highScore();
 			}
 		});
-		menuBar.add(mnHighscore);
+		mnHighscore.add(mntmScoreboard);
 		
 		JMenu mnAbout = new JMenu("About");
 		menuBar.add(mnAbout);
@@ -389,7 +393,7 @@ public class SudokuMainWindow {
 			});
 			eastPanel.setLayout(new MigLayout("", "[120.00]", "[][][][][][][][][][][][][]"));
 			
-			lblTime = new JLabel("Time:");
+			lblTime = new JLabel("Time: ");
 			lblTime.setAlignmentX(Component.CENTER_ALIGNMENT);
 			eastPanel.add(lblTime, "flowx,cell 0 1");
 			
@@ -399,23 +403,31 @@ public class SudokuMainWindow {
 			textTimeField.setColumns(10);
 			
 			JButton btnPause = new JButton("Pause");
+			btnPause.setPreferredSize(new Dimension(100, 23));
 			btnPause.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					Funkcije.pause(tajmer);
+					if(Funkcije.pauza) {
+						btnPause.setText("Continue");
+						Funkcije.pause(tajmer);
+					} else {
+						btnPause.setText("Pause");
+						Funkcije.nastavi();
+					}
 				}
 			});
 			btnPause.setActionCommand("Pause");
-			eastPanel.add(btnPause, "cell 0 3");
+			eastPanel.add(btnPause, "cell 0 3,alignx center");
 			
 			JButton btnCheck = new JButton("Check");
+			btnCheck.setPreferredSize(new Dimension(100, 23));
 			btnCheck.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent arg0) {
 					
 				}
 			});
-			eastPanel.add(btnCheck, "cell 0 5");
+			eastPanel.add(btnCheck, "cell 0 5,alignx center");
 		}
 		return eastPanel;
 	}

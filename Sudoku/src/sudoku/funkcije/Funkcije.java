@@ -1,9 +1,11 @@
 package sudoku.funkcije;
 
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import sudoku.Polje;
 import sudoku.generator.GeneratorProvera;
 import sudoku.gui.SudokuMainWindow;
 
@@ -12,7 +14,9 @@ import javax.swing.JTextField;
 
 public class Funkcije {
 	
-	static boolean pauza = true;
+	public static boolean pauza = true;
+	static Random rnd = new Random();
+
 
 	public static void pauziraj(Timer tajmer) {
 		if(pauza){
@@ -23,10 +27,8 @@ public class Funkcije {
 	}
 	
 	public static void pause(Timer tajmer) {
-		
 			tajmer.cancel();
 			pauza=false;
-			
 	}
 	
 	public static void nastavi() {
@@ -63,7 +65,8 @@ public class Funkcije {
 		nastavi();
 		
 		gen.generisati();
-		Funkcije.otkljucajSvaIZakljucajGenerisana(matricaPolja, gen.getMatricaGenerisanih(), gen.getBrojGenerisanih());
+		
+		Funkcije.otkljucajSvaIZakljucajGenerisana(matricaPolja, gen.getMatrica());
 		Funkcije.ispisMatriceUInterfejs(matricaPolja, gen.getMatrica());
 	}
 	
@@ -83,18 +86,78 @@ public class Funkcije {
 		
 	}
 	
-	public static void otkljucajSvaIZakljucajGenerisana(JTextField[][] matricaPolja, int[][] matricaGenerisanih, int brojGenerisanih) {
+	public static void otkljucajSvaIZakljucajGenerisana(JTextField[][] matricaPolja, Polje[][] matrica) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				matricaPolja[i][j].setEditable(true);
 			}
 		}
-		for (int i = 0; i < brojGenerisanih; i++) {
-			matricaPolja[matricaGenerisanih[0][i]][matricaGenerisanih[1][i]].setEditable(false);
+		
+		for (int i = 1; i <= 9; i++) {
+			int count;
+				switch (i) {
+				case 1: 
+					count = 3 + rnd.nextInt(3);
+					obrisiRandomPoljaUDatomRasponu(count, 0, 2, 0, 2, matrica);
+					break;
+				case 2:  
+					count = 3 + rnd.nextInt(3);
+					obrisiRandomPoljaUDatomRasponu(count, 3, 5, 0, 2, matrica);
+					break;
+				case 3: 
+					count = 3 + rnd.nextInt(3);
+					obrisiRandomPoljaUDatomRasponu(count, 6, 8, 0, 2, matrica);
+					break;
+				case 4: 
+					count = 3 + rnd.nextInt(3);
+					obrisiRandomPoljaUDatomRasponu(count, 0, 2, 3, 5, matrica);
+					break;
+				case 5: 
+					count = 3 + rnd.nextInt(3);
+					obrisiRandomPoljaUDatomRasponu(count, 3, 5, 3, 5, matrica);
+					break;
+				case 6: 
+					count = 3 + rnd.nextInt(3);
+					obrisiRandomPoljaUDatomRasponu(count, 6, 6, 3, 5, matrica);
+					break;
+				case 7: 
+					count = 3 + rnd.nextInt(3);
+					obrisiRandomPoljaUDatomRasponu(count, 0, 2, 6, 8, matrica);
+					break;
+				case 8: 
+					count = 3 + rnd.nextInt(3);
+					obrisiRandomPoljaUDatomRasponu(count, 3, 5, 6, 8, matrica);
+					break;
+				case 9: 
+					count = 3 + rnd.nextInt(3);
+					obrisiRandomPoljaUDatomRasponu(count, 6, 8, 6, 8, matrica);
+					break;
+				default:
+					break;
+				}
+		}
+		
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if(matrica[i][j].isZakljucano()) {
+					matricaPolja[i][j].setEditable(false);
+				}
+			}
 		}
 	}
 	
-	public static void ispisMatriceUInterfejs(JTextField[][] matricaPolja, int[][] matrica) {
+	private static void obrisiRandomPoljaUDatomRasponu(int count, int minX, int maxX, int minY, int maxY, Polje[][] matrica) {
+		while(count >= 0) {
+			int x = minX + rnd.nextInt(3);
+			int y = minY + rnd.nextInt(3);
+			if(!matrica[x][y].isZakljucano()) {
+				matrica[x][y].setZakljucano(true);
+				count--;
+			}
+		}
+	}
+
+	public static void ispisMatriceUInterfejs(JTextField[][] matricaPolja, Polje[][] matrica) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				matricaPolja[i][j].setText("");
@@ -104,8 +167,8 @@ public class Funkcije {
 		
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				if (matrica[i][j] != 0) {
-					matricaPolja[i][j].setText(matrica[i][j] + "");
+				if (matrica[i][j].isZakljucano()) {
+					matricaPolja[i][j].setText(matrica[i][j].getGenerisanaVrednost() + "");
 				}
 			}
 		}
