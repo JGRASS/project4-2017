@@ -243,6 +243,24 @@ public class GeneratorProvera {
 		matrica[x][y].setUnesenaVrednost(broj);
 
 	}
+	public void unesiBrojG(int broj, int x, int y) {
+		matrica[x][y].setGenerisanaVrednost(broj);
+
+	}
+	/**
+	 * Metoda koja za unete koordinate vrava  broj sa zeljenog mesta u
+	 * matrici.
+	 * 
+	 
+	 * @param x
+	 *            koordinata reda gde treba uneti broj.
+	 * @param y
+	 *            koordinata kolone gde treba uneti broj;
+	 */
+	public int vratiBroj(int x, int y) {
+		return matrica[x][y].getUnesenaVrednost();
+
+	}
 
 	/**
 	 * Metoda koja postavlja vrednosti svih clanova matrice na nulu.

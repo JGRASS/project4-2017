@@ -426,7 +426,7 @@ public class SudokuMainWindow {
 			btnCheck.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					
-					if(Funkcije.proveraSudokua(matricaPolja, gen.getMatrica())){
+					if(Funkcije.proveraSudokua(matricaPolja)){
 					
 						JOptionPane.showMessageDialog(null,"Uspesto ste resili sudoku!","Bravo",JOptionPane.INFORMATION_MESSAGE);
 						Funkcije.pause(tajmer);

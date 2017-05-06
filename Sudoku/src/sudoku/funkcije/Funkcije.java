@@ -174,19 +174,26 @@ public class Funkcije {
 		}
 	}
 	
-	public static boolean proveraSudokua(JTextField[][] matricaPolja, Polje [][] matrica){
-		
+	public static boolean proveraSudokua(JTextField[][] matricaPolja){
+		GeneratorProvera gen = new GeneratorProvera();
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				if(!(matricaPolja[i][j].getText().equals(""))){
-				if (Integer.parseInt(matricaPolja[i][j].getText())!=matrica[i][j].getGenerisanaVrednost()) {
-					return false;
-				}
+				gen.unesiBroj(Integer.parseInt(matricaPolja[i][j].getText()), i, j);
+				gen.unesiBrojG(Integer.parseInt(matricaPolja[i][j].getText()), i, j);
 			}
-				
-				else{
+				else{return false;
+					
+				}}
+		}
+		
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if(gen.uRedu(gen.vratiBroj(i, j), i) || gen.uKoloni(gen.vratiBroj(i, j), j) || gen.uKvadratu(gen.vratiBroj(i, j), i, j)){
 					return false;
 				}
+						
+						
 		}}
 		
 		return true;
