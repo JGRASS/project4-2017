@@ -18,7 +18,7 @@ public class GeneratorProvera {
 	/**
 	 * Matrica svih brojeva koji su generisani ili uneseni od strane igraca.
 	 */
-	private Polje[][] matrica = new Polje[9][9];
+	private static Polje[][] matrica = new Polje[9][9];
 	
 	public GeneratorProvera() {
 		for (int i = 0; i < matrica.length; i++) {
@@ -275,11 +275,11 @@ public class GeneratorProvera {
 		}
 	}
 
-	public Polje[][] getMatrica() {
+	public static Polje[][] getMatrica() {
 		return matrica;
 	}
 
 	public void setMatrica(Polje[][] matrica) {
-		this.matrica = matrica;
+		GeneratorProvera.matrica = matrica;
 	}
 }

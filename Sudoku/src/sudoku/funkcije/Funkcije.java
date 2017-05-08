@@ -1,10 +1,12 @@
 package sudoku.funkcije;
 
 
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import sudoku.Igrac;
 import sudoku.Polje;
 import sudoku.generator.GeneratorProvera;
 import sudoku.gui.SudokuMainWindow;
@@ -16,7 +18,15 @@ public class Funkcije {
 
 	public static boolean pauza = true;
 	static Random rnd = new Random();
+	private static LinkedList<Igrac> igraci = new LinkedList<Igrac>();
 
+	public static void setIgraci(LinkedList<Igrac> igraci) {
+		Funkcije.igraci = igraci;
+	}
+
+	public static LinkedList<Igrac> getIgraci() {
+		return igraci;
+	}
 
 	public static void pauziraj(Timer tajmer) {
 		if(pauza){
@@ -66,24 +76,69 @@ public class Funkcije {
 
 		gen.generisati();
 
-		Funkcije.otkljucajSvaIZakljucajGenerisana(matricaPolja, gen.getMatrica());
-		Funkcije.ispisMatriceUInterfejs(matricaPolja, gen.getMatrica());
+		Funkcije.otkljucajSvaIZakljucajGenerisana(matricaPolja, GeneratorProvera.getMatrica());
+		Funkcije.ispisMatriceUInterfejs(matricaPolja, GeneratorProvera.getMatrica());
 	}
 
 	public static void save() {
 
 	}
 
-	public static void reset() {
-
+	public static void reset(JTextField[][] matricaPolja, Polje[][] matrica) {
+		
+		for(int i = 0; i < 9; i++){
+			for(int j = 0; j < 9; j++){
+				if(!matrica[i][j].isZakljucano()){
+					matricaPolja[i][j].setText("");
+				}
+			}
+		}
+		
 	}
 
 	public static void openGame() {
 
 	}
 
-	public static void highScore() {
-
+	public static void updateHighScore(Igrac ig) {
+		
+		if(igraci == null){
+			igraci = new LinkedList<Igrac>();
+		}
+		
+		if(igraci.isEmpty()){
+			igraci.add(ig);
+			return;
+		}
+		
+		for(int i = 0; i < igraci.size(); i++){
+			
+			if(igraci.get(i).getSati() < ig.getSati())
+				continue;
+			
+			if(igraci.get(i).getMinuti() < ig.getMinuti())
+				continue;
+			
+			if(igraci.get(i).getSekunde() < ig.getSekunde())
+				continue;
+			
+			igraci.add(i, ig);
+			return;
+		}
+		
+		igraci.add(ig);
+		
+		if(igraci.size()==11){
+			igraci.removeLast();
+			return;
+		}
+		
+	}
+	
+	public static void highscore(){
+		
+		
+		
 	}
 
 	public static void otkljucajSvaIZakljucajGenerisana(JTextField[][] matricaPolja, Polje[][] matrica) {
@@ -182,9 +237,8 @@ public class Funkcije {
 					gen.unesiBroj(Integer.parseInt(matricaPolja[i][j].getText()), i, j);
 					gen.unesiBrojG(Integer.parseInt(matricaPolja[i][j].getText()), i, j);
 				}
-				else{return false;
-
-				}
+				else
+					return false;
 			}
 		}
 
