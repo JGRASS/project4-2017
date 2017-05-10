@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JTextField;
+import javax.swing.RootPaneContainer;
 import javax.swing.border.CompoundBorder;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -30,6 +31,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -294,7 +296,7 @@ public class SudokuMainWindow {
 		mntmReset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Funkcije.reset(matricaPolja, GeneratorProvera.getMatrica());
+				Funkcije.reset(matricaPolja, gen.getMatrica());
 			}
 		});
 		mnFile.add(mntmReset);
@@ -436,19 +438,25 @@ public class SudokuMainWindow {
 			textTimeField.setColumns(10);
 			
 			JButton btnPause = new JButton("Pause");
-			btnPause.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-				}
-			});
+		
 			btnPause.setPreferredSize(new Dimension(100, 23));
 			btnPause.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if(Funkcije.pauza) {
-						Funkcije.pause(tajmer);
-						centralPanel.setVisible(false);
-						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
+						Funkcije.pause(tajmer);						
+					   
+					    
+					    final JOptionPane pane = new JOptionPane("Pritisnite OK da biste nastavili igru!",JOptionPane.INFORMATION_MESSAGE);
+					    final JDialog d = pane.createDialog((JFrame)null, "Igra je zaustavljena");
+					    d.setLocationRelativeTo(centralPanel);
+					    centralPanel.setVisible(false);
+					    d.setVisible(true);
+					    
+					    
+						
 						centralPanel.setVisible(true);
+					
 						Funkcije.nastavi();
 						} else {
 						btnPause.setText("Pause");
@@ -463,15 +471,23 @@ public class SudokuMainWindow {
 			btnCheck.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					
-					if(Funkcije.proveraSudokua(matricaPolja)){
-					
-						JOptionPane.showMessageDialog(null,"Uspesto ste resili sudoku!","Bravo",JOptionPane.INFORMATION_MESSAGE);
+					if(Funkcije.proveraSudokua(gen)){
+						final JOptionPane pane = new JOptionPane("Uspesno ste resili sudoku!",JOptionPane.INFORMATION_MESSAGE);
+					    final JDialog d = pane.createDialog((JFrame)null, "Bravo!");
+					    d.setLocationRelativeTo(centralPanel);
+					    d.setVisible(true);
+					   
 						Funkcije.pause(tajmer);
 						
 					}
 					else{
 						Funkcije.pause(tajmer);
-						JOptionPane.showMessageDialog(null,"Pokusajte ponovo!","Greska",JOptionPane.ERROR_MESSAGE);
+						final JOptionPane pane = new JOptionPane("Pokusajte ponovo",JOptionPane.INFORMATION_MESSAGE);
+					    final JDialog d = pane.createDialog((JFrame)null, "Greska");
+					    d.setLocationRelativeTo(centralPanel);
+					    centralPanel.setVisible(false);
+					    d.setVisible(true);
+					    centralPanel.setVisible(true);
 						Funkcije.pauziraj(tajmer);
 					}
 				}

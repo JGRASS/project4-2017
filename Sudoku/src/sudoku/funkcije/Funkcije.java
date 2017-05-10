@@ -76,8 +76,8 @@ public class Funkcije {
 
 		gen.generisati();
 
-		Funkcije.otkljucajSvaIZakljucajGenerisana(matricaPolja, GeneratorProvera.getMatrica());
-		Funkcije.ispisMatriceUInterfejs(matricaPolja, GeneratorProvera.getMatrica());
+		Funkcije.otkljucajSvaIZakljucajGenerisana(matricaPolja, gen.getMatrica());
+		Funkcije.ispisMatriceUInterfejs(matricaPolja, gen.getMatrica());
 	}
 
 	public static void save() {
@@ -89,6 +89,7 @@ public class Funkcije {
 		for(int i = 0; i < 9; i++){
 			for(int j = 0; j < 9; j++){
 				if(!matrica[i][j].isZakljucano()){
+					matrica[i][j].setUnesenaVrednost(0);
 					matricaPolja[i][j].setText("");
 				}
 			}
@@ -152,39 +153,39 @@ public class Funkcije {
 			int count;
 			switch (i) {
 			case 1: 
-				count = 2 + rnd.nextInt(2);
+				count = 8 + rnd.nextInt(1);
 				obrisiRandomPoljaUDatomRasponu(count, 0, 2, 0, 2, matrica);
 				break;
 			case 2:  
-				count = 2 + rnd.nextInt(2);
+				count = 8 + rnd.nextInt(1);
 				obrisiRandomPoljaUDatomRasponu(count, 3, 5, 0, 2, matrica);
 				break;
 			case 3: 
-				count = 2 + rnd.nextInt(2);
+				count = 8 + rnd.nextInt(1);
 				obrisiRandomPoljaUDatomRasponu(count, 6, 8, 0, 2, matrica);
 				break;
 			case 4: 
-				count = 2 + rnd.nextInt(2);
+				count = 8+ rnd.nextInt(1);
 				obrisiRandomPoljaUDatomRasponu(count, 0, 2, 3, 5, matrica);
 				break;
 			case 5: 
-				count = 2 + rnd.nextInt(2);
+				count = 8+ rnd.nextInt(1);
 				obrisiRandomPoljaUDatomRasponu(count, 3, 5, 3, 5, matrica);
 				break;
 			case 6: 
-				count = 2 + rnd.nextInt(2);
+				count = 8 + rnd.nextInt(1);
 				obrisiRandomPoljaUDatomRasponu(count, 6, 6, 3, 5, matrica);
 				break;
 			case 7: 
-				count = 2 + rnd.nextInt(2);
+				count = 8 + rnd.nextInt(1);
 				obrisiRandomPoljaUDatomRasponu(count, 0, 2, 6, 8, matrica);
 				break;
 			case 8: 
-				count = 2 + rnd.nextInt(2);
+				count = 8 + rnd.nextInt(1);
 				obrisiRandomPoljaUDatomRasponu(count, 3, 5, 6, 8, matrica);
 				break;
 			case 9: 
-				count = 2 + rnd.nextInt(2);
+				count = 6 + rnd.nextInt(1);
 				obrisiRandomPoljaUDatomRasponu(count, 6, 8, 6, 8, matrica);
 				break;
 			default:
@@ -229,32 +230,30 @@ public class Funkcije {
 		}
 	}
 
-	public static boolean proveraSudokua(JTextField[][] matricaPolja){
-		GeneratorProvera gen = new GeneratorProvera();
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if(!(matricaPolja[i][j].getText().equals(""))){
-					gen.unesiBroj(Integer.parseInt(matricaPolja[i][j].getText()), i, j);
-					gen.unesiBrojG(Integer.parseInt(matricaPolja[i][j].getText()), i, j);
-				}
-				else
-					return false;
-			}
-		}
-
+	public static boolean proveraSudokua(GeneratorProvera gen){
+		
 		for (int i = 0; i < 9; i++) {
 			int brojac=0;
 			for (int j = 0; j < 9; j++) {
-				if(gen.uRedu(Integer.parseInt(matricaPolja[i][j].getText()), i) || gen.uKoloni(Integer.parseInt(matricaPolja[i][j].getText()), j) || gen.uKvadratu(Integer.parseInt(matricaPolja[i][j].getText()), i, j)){
-					brojac++;
+				if((gen.getMatrica()[i][j].getUnesenaVrednost())!=0 || (gen.getMatrica()[i][j].getGenerisanaVrednost())!=0){
+					if(gen.uRedu(gen.getMatrica()[i][j].getUnesenaVrednost(), i) || gen.uKoloni(gen.getMatrica()[i][j].getUnesenaVrednost(), j) || gen.uKvadratu(gen.getMatrica()[i][j].getUnesenaVrednost(), i, j)){
+						brojac++;
+						
+					}
 				}
-
-
+				
+				else
+					{return false;
+					}
+					
 			}
 			if(brojac>9){
 				return false;
 			}
+			
 		}
+
+		
 
 		return true;
 	}

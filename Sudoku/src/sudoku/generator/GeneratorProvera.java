@@ -275,11 +275,11 @@ public class GeneratorProvera {
 		}
 	}
 
-	public static Polje[][] getMatrica() {
+	public Polje[][] getMatrica() {
 		return matrica;
 	}
 
 	public void setMatrica(Polje[][] matrica) {
-		GeneratorProvera.matrica = matrica;
+		this.matrica = matrica;
 	}
 }
