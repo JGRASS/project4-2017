@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import sudoku.Igrac;
+import sudoku.Igra;
 import sudoku.Polje;
 import sudoku.generator.GeneratorProvera;
 import sudoku.gui.SudokuMainWindow;
@@ -18,13 +18,13 @@ public class Funkcije {
 
 	public static boolean pauza = true;
 	static Random rnd = new Random();
-	private static LinkedList<Igrac> igraci = new LinkedList<Igrac>();
+	private static LinkedList<Igra> igraci = new LinkedList<Igra>();
 
-	public static void setIgraci(LinkedList<Igrac> igraci) {
+	public static void setIgraci(LinkedList<Igra> igraci) {
 		Funkcije.igraci = igraci;
 	}
 
-	public static LinkedList<Igrac> getIgraci() {
+	public static LinkedList<Igra> getIgraci() {
 		return igraci;
 	}
 
@@ -101,10 +101,10 @@ public class Funkcije {
 
 	}
 
-	public static void updateHighScore(Igrac ig) {
+	public static void updateHighScore(Igra ig) {
 		
 		if(igraci == null){
-			igraci = new LinkedList<Igrac>();
+			igraci = new LinkedList<Igra>();
 		}
 		
 		if(igraci.isEmpty()){
@@ -153,39 +153,39 @@ public class Funkcije {
 			int count;
 			switch (i) {
 			case 1: 
-				count = 8 + rnd.nextInt(1);
+				count = 2 + rnd.nextInt(2);
 				obrisiRandomPoljaUDatomRasponu(count, 0, 2, 0, 2, matrica);
 				break;
 			case 2:  
-				count = 8 + rnd.nextInt(1);
+				count = 2 + rnd.nextInt(2);
 				obrisiRandomPoljaUDatomRasponu(count, 3, 5, 0, 2, matrica);
 				break;
 			case 3: 
-				count = 8 + rnd.nextInt(1);
+				count = 2 + rnd.nextInt(2);
 				obrisiRandomPoljaUDatomRasponu(count, 6, 8, 0, 2, matrica);
 				break;
 			case 4: 
-				count = 8+ rnd.nextInt(1);
+				count = 2 + rnd.nextInt(2);
 				obrisiRandomPoljaUDatomRasponu(count, 0, 2, 3, 5, matrica);
 				break;
 			case 5: 
-				count = 8+ rnd.nextInt(1);
+				count = 2 + rnd.nextInt(2);
 				obrisiRandomPoljaUDatomRasponu(count, 3, 5, 3, 5, matrica);
 				break;
 			case 6: 
-				count = 8 + rnd.nextInt(1);
+				count = 2 + rnd.nextInt(2);
 				obrisiRandomPoljaUDatomRasponu(count, 6, 6, 3, 5, matrica);
 				break;
 			case 7: 
-				count = 8 + rnd.nextInt(1);
+				count = 2 + rnd.nextInt(2);
 				obrisiRandomPoljaUDatomRasponu(count, 0, 2, 6, 8, matrica);
 				break;
 			case 8: 
-				count = 8 + rnd.nextInt(1);
+				count = 2 + rnd.nextInt(2);
 				obrisiRandomPoljaUDatomRasponu(count, 3, 5, 6, 8, matrica);
 				break;
 			case 9: 
-				count = 6 + rnd.nextInt(1);
+				count = 2 + rnd.nextInt(2);
 				obrisiRandomPoljaUDatomRasponu(count, 6, 8, 6, 8, matrica);
 				break;
 			default:
@@ -225,37 +225,59 @@ public class Funkcije {
 			for (int j = 0; j < 9; j++) {
 				if (matrica[i][j].isZakljucano()) {
 					matricaPolja[i][j].setText(matrica[i][j].getGenerisanaVrednost() + "");
+				} else if(matrica[i][j].getUnesenaVrednost() != 0) {
+					matricaPolja[i][j].setText(matrica[i][j].getUnesenaVrednost() + "");
 				}
 			}
 		}
 	}
 
 	public static boolean proveraSudokua(GeneratorProvera gen){
+		//red
+		for (int red = 0; red < 9; red++)
+			for (int i = 0; i < 9; i++)
+				for (int j = 0; j < 9; j++)
+					if(i!=j && gen.getMatrica()[red][i].vratiBroj() == gen.getMatrica()[red][j].vratiBroj())
+						return false;
 		
-		for (int i = 0; i < 9; i++) {
-			int brojac=0;
-			for (int j = 0; j < 9; j++) {
-				if((gen.getMatrica()[i][j].getUnesenaVrednost())!=0 || (gen.getMatrica()[i][j].getGenerisanaVrednost())!=0){
-					if(gen.uRedu(gen.getMatrica()[i][j].getUnesenaVrednost(), i) || gen.uKoloni(gen.getMatrica()[i][j].getUnesenaVrednost(), j) || gen.uKvadratu(gen.getMatrica()[i][j].getUnesenaVrednost(), i, j)){
-						brojac++;
-						
-					}
-				}
-				
-				else
-					{return false;
-					}
-					
-			}
-			if(brojac>9){
-				return false;
-			}
-			
-		}
-
+		//kolona
+		for (int kolona = 0; kolona < 9; kolona++)
+			for (int i = 0; i < 9; i++)
+				for (int j = 0; j < 9; j++)
+					if(i!=j && gen.getMatrica()[i][kolona].vratiBroj() == gen.getMatrica()[j][kolona].vratiBroj())
+						return false;
 		
-
+		//kvadrat
+		for (int kvadrat = 0; kvadrat < 9; kvadrat++)
+			switch (kvadrat) {
+			case 1: return proveriKvadrat(gen, 0, 0);
+			case 2: return proveriKvadrat(gen, 3, 0);
+			case 3: return proveriKvadrat(gen, 6, 0);
+			case 4: return proveriKvadrat(gen, 0, 3);
+			case 5: return proveriKvadrat(gen, 3, 3);
+			case 6: return proveriKvadrat(gen, 6, 3);
+			case 7: return proveriKvadrat(gen, 0, 6);
+			case 8: return proveriKvadrat(gen, 3, 6);
+			case 9: return proveriKvadrat(gen, 6, 6);
+			default:
+				break;
+			}
+		
 		return true;
 	}
-
+	
+	private static boolean proveriKvadrat(GeneratorProvera gen, int minX, int minY) {
+		for (int red = minY; red < minY + 3; red++) {
+			for (int kolona = minX; kolona < minX + 3; kolona++) {
+				for (int i = minY; i < minY + 3; i++) {
+					for (int j = minX; j < minX + 3; j++) {
+						if(i != red && j != kolona && gen.getMatrica()[red][kolona].vratiBroj() == gen.getMatrica()[i][j].vratiBroj()) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
 }

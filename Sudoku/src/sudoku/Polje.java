@@ -15,6 +15,13 @@ public class Polje {
 		this.zakljucano = zakljucano;
 	}
 	
+	public int vratiBroj() {
+		if(zakljucano) {
+			return generisanaVrednost;
+		}
+		return unesenaVrednost;
+	}
+	
 	public int getGenerisanaVrednost() {
 		return generisanaVrednost;
 	}

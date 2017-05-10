@@ -18,7 +18,7 @@ public class GeneratorProvera {
 	/**
 	 * Matrica svih brojeva koji su generisani ili uneseni od strane igraca.
 	 */
-	private static Polje[][] matrica = new Polje[9][9];
+	private Polje[][] matrica = new Polje[9][9];
 	
 	public GeneratorProvera() {
 		for (int i = 0; i < matrica.length; i++) {
