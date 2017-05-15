@@ -2,7 +2,7 @@ package sudoku;
 
 import java.io.Serializable;
 
-public class Igra implements Serializable{
+public class Rezultat implements Serializable{
 	
 	/**
 	 * 
@@ -30,7 +30,7 @@ public class Igra implements Serializable{
 		return sati;
 	}
 
-	public Igra(String ime, int sekunde, int minuti, int sati){
+	public Rezultat(String ime, int sekunde, int minuti, int sati){
 		
 		this.ime=ime;
 		this.sekunde=sekunde;

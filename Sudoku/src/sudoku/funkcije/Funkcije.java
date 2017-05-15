@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import sudoku.Igra;
+import sudoku.Rezultat;
 import sudoku.Polje;
 import sudoku.generator.GeneratorProvera;
 import sudoku.gui.SudokuMainWindow;
@@ -18,14 +18,14 @@ public class Funkcije {
 
 	public static boolean pauza = true;
 	static Random rnd = new Random();
-	private static LinkedList<Igra> igraci = new LinkedList<Igra>();
+	private static LinkedList<Rezultat> topLista = new LinkedList<Rezultat>();
 
-	public static void setIgraci(LinkedList<Igra> igraci) {
-		Funkcije.igraci = igraci;
+	public static void setIgraci(LinkedList<Rezultat> igraci) {
+		Funkcije.topLista = igraci;
 	}
 
-	public static LinkedList<Igra> getIgraci() {
-		return igraci;
+	public static LinkedList<Rezultat> getIgraci() {
+		return topLista;
 	}
 
 	public static void pauziraj(Timer tajmer) {
@@ -101,36 +101,36 @@ public class Funkcije {
 
 	}
 
-	public static void updateHighScore(Igra ig) {
+	public static void updateHighScore(Rezultat rez) {
 		
-		if(igraci == null){
-			igraci = new LinkedList<Igra>();
+		if(topLista == null){
+			topLista = new LinkedList<Rezultat>();
 		}
 		
-		if(igraci.isEmpty()){
-			igraci.add(ig);
+		if(topLista.isEmpty()){
+			topLista.add(rez);
 			return;
 		}
 		
-		for(int i = 0; i < igraci.size(); i++){
+		for(int i = 0; i < topLista.size(); i++){
 			
-			if(igraci.get(i).getSati() < ig.getSati())
+			if(topLista.get(i).getSati() < rez.getSati())
 				continue;
 			
-			if(igraci.get(i).getMinuti() < ig.getMinuti())
+			if(topLista.get(i).getMinuti() < rez.getMinuti())
 				continue;
 			
-			if(igraci.get(i).getSekunde() < ig.getSekunde())
+			if(topLista.get(i).getSekunde() < rez.getSekunde())
 				continue;
 			
-			igraci.add(i, ig);
+			topLista.add(i, rez);
 			return;
 		}
 		
-		igraci.add(ig);
+		topLista.add(rez);
 		
-		if(igraci.size()==11){
-			igraci.removeLast();
+		if(topLista.size()==11){
+			topLista.removeLast();
 			return;
 		}
 		
