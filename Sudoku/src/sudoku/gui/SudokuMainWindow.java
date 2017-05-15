@@ -351,12 +351,12 @@ public class SudokuMainWindow extends JFrame {
 		menuBar.add(mnHighscore);
 		
 		mntmScoreboard = new JMenuItem("Scoreboard");
-		mntmScoreboard.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
+		mntmScoreboard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//TODO odavde pozvati novi prozor koji ce u tabeli da ispise listu top10
 			}
 		});
+		
 		mnHighscore.add(mntmScoreboard);
 		
 		JMenu mnAbout = new JMenu("About");
@@ -511,12 +511,6 @@ public class SudokuMainWindow extends JFrame {
 				}
 			});
 			btnCheck.setPreferredSize(new Dimension(100, 23));
-			btnCheck.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent arg0) {
-					
-				}
-			});
 			eastPanel.add(btnCheck, "cell 0 5,alignx center");
 		}
 		return eastPanel;
@@ -2218,6 +2212,7 @@ public class SudokuMainWindow extends JFrame {
 		if(!Funkcije.proveraSudokua(gen)) {
 			JOptionPane.showMessageDialog(glavniProzor, "Napravili ste gresku.", "Greska!", JOptionPane.ERROR_MESSAGE);
 		} else {
+			Funkcije.updateHighscore(sati, minuti, sekunde);
 			Object[] options = {"Da", "Ne"};
 			int n = JOptionPane.showOptionDialog(glavniProzor, "Uspesno ste zavrsili igru. Da li zelite da zapocnete novu igru?", "Cestitamo!", 
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);

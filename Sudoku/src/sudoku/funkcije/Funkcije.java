@@ -2,16 +2,16 @@ package sudoku.funkcije;
 
 
 import java.io.File;
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import sudoku.Rezultat;
 import sudoku.Igra;
 import sudoku.Polje;
 import sudoku.generator.GeneratorProvera;
 import sudoku.gui.SudokuMainWindow;
+import sudoku.scores.Rezultat;
+import sudoku.scores.Rezultati;
 
 import javax.swing.JTextField;
 
@@ -20,15 +20,7 @@ public class Funkcije {
 
 	public static boolean pauza = true;
 	static Random rnd = new Random();
-	private static LinkedList<Rezultat> topLista = new LinkedList<Rezultat>();
-
-	public static void setIgraci(LinkedList<Rezultat> igraci) {
-		Funkcije.topLista = igraci;
-	}
-
-	public static LinkedList<Rezultat> getIgraci() {
-		return topLista;
-	}
+	
 
 	public static void pauziraj(Timer tajmer) {
 		if(pauza){
@@ -105,46 +97,20 @@ public class Funkcije {
 		}
 		
 	}
-
-	public static void updateHighScore(Rezultat rez) {
-		
-		if(topLista == null){
-			topLista = new LinkedList<Rezultat>();
-		}
-		
-		if(topLista.isEmpty()){
-			topLista.add(rez);
-			return;
-		}
-		
-		for(int i = 0; i < topLista.size(); i++){
-			
-			if(topLista.get(i).getSati() < rez.getSati())
-				continue;
-			
-			if(topLista.get(i).getMinuti() < rez.getMinuti())
-				continue;
-			
-			if(topLista.get(i).getSekunde() < rez.getSekunde())
-				continue;
-			
-			topLista.add(i, rez);
-			return;
-		}
-		
-		topLista.add(rez);
-		
-		if(topLista.size()==11){
-			topLista.removeLast();
-			return;
-		}
-		
-	}
 	
-	public static void highscore(){
-		
-		
-		
+	public static void updateHighscore(int sati, int minuti, int sekunde){
+		Rezultati rezultati = Rezultati.deserialize();
+		Rezultat rez = new Rezultat(sekunde, minuti, sati);
+		int index = rezultati.proveriRezultat(rez);
+		String ime = "";
+		if(index != -1) {
+			//TODO kada se uradi tronivovska u gui kontroleru dodati staticku metodu koja ce se pozvati
+			//odavde i koja ce traziti unos imena za highscore, ukoliko se ne unese ime
+			//postaviti neko default ime
+		}
+		rez.setIme(ime);
+		rezultati.dodajRezultat(rez, index);
+		rezultati.serialize();
 	}
 
 	public static void otkljucajSvaIZakljucajGenerisana(JTextField[][] matricaPolja, Polje[][] matrica) {

@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.scores;
 
 import java.io.Serializable;
 
@@ -13,9 +13,26 @@ public class Rezultat implements Serializable{
 	private int sekunde;
 	private int minuti;
 	private int sati;
-	
+
+	public Rezultat(String ime, int sekunde, int minuti, int sati){
+		this.ime=ime;
+		this.sekunde=sekunde;
+		this.minuti=minuti;
+		this.sati=sati;
+	}
+
+	public Rezultat(int sekunde, int minuti, int sati){
+		this.sekunde=sekunde;
+		this.minuti=minuti;
+		this.sati=sati;
+	}
+
 	public String getIme() {
 		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
 	}
 
 	public int getSekunde() {
@@ -30,14 +47,6 @@ public class Rezultat implements Serializable{
 		return sati;
 	}
 
-	public Rezultat(String ime, int sekunde, int minuti, int sati){
-		
-		this.ime=ime;
-		this.sekunde=sekunde;
-		this.minuti=minuti;
-		this.sati=sati;
-		
-	}
 	
 	public String toString(){
 		
