@@ -1,12 +1,14 @@
 package sudoku.funkcije;
 
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import sudoku.Rezultat;
+import sudoku.Igra;
 import sudoku.Polje;
 import sudoku.generator.GeneratorProvera;
 import sudoku.gui.SudokuMainWindow;
@@ -80,8 +82,15 @@ public class Funkcije {
 		Funkcije.ispisMatriceUInterfejs(matricaPolja, gen.getMatrica());
 	}
 
-	public static void save() {
-
+	
+	public static Igra openGame(File file) {
+		return Igra.deserialize(file);
+	}
+	
+	public static void save(Polje[][] matrica, int sati, int minuti, int sekunde, File file) {
+		Igra igra = new Igra(matrica, sati, minuti, sekunde);
+		igra.serialize(file);
+		
 	}
 
 	public static void reset(JTextField[][] matricaPolja, Polje[][] matrica) {
@@ -95,10 +104,6 @@ public class Funkcije {
 			}
 		}
 		
-	}
-
-	public static void openGame() {
-
 	}
 
 	public static void updateHighScore(Rezultat rez) {

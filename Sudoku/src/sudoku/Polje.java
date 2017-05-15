@@ -1,6 +1,10 @@
 package sudoku;
 
-public class Polje {
+import java.io.Serializable;
+
+public class Polje implements Serializable {
+	
+	private static final long serialVersionUID = 9105679343991525823L;
 	
 	private int generisanaVrednost = 0;
 	private int unesenaVrednost = 0;

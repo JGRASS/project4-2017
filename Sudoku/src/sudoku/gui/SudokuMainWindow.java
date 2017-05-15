@@ -5,10 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
+import sudoku.Igra;
 import sudoku.funkcije.Funkcije;
 import sudoku.generator.GeneratorProvera;
 
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,6 +34,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -268,7 +272,25 @@ public class SudokuMainWindow extends JFrame {
 		mntmOpenGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Funkcije.openGame();
+				Funkcije.pause(tajmer);
+				File dir = new File(".");
+				StringBuffer projectDir = new StringBuffer(dir.getAbsolutePath());
+				projectDir.deleteCharAt(projectDir.length()-1);
+				JFileChooser chooser = new JFileChooser(projectDir.toString());
+			    FileNameExtensionFilter filter = new FileNameExtensionFilter("Sudoku Save Game files", "ssg");
+			    chooser.setFileFilter(filter);
+			    int returnVal = chooser.showOpenDialog(glavniProzor);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			    	Igra igra = Funkcije.openGame(chooser.getSelectedFile());
+			    	Funkcije.pause(tajmer);
+			    	sati = igra.getSati();
+			    	minuti = igra.getMinuti();
+			    	sekunde = igra.getSekunde();
+			    	Funkcije.nastavi();
+			    	Funkcije.ispisMatriceUInterfejs(matricaPolja, igra.getMatrica());
+			    	return;
+			    }
+			    Funkcije.nastavi();
 			}
 		});
 		mnFile.add(mntmOpenGame);
@@ -277,7 +299,18 @@ public class SudokuMainWindow extends JFrame {
 		mntmSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Funkcije.save();
+				Funkcije.pause(tajmer);
+				File dir = new File(".");
+				StringBuffer projectDir = new StringBuffer(dir.getAbsolutePath());
+				projectDir.deleteCharAt(projectDir.length()-1);
+				JFileChooser chooser = new JFileChooser(projectDir.toString());
+			    FileNameExtensionFilter filter = new FileNameExtensionFilter("Sudoku Save Game files", "ssg");
+			    chooser.setFileFilter(filter);
+			    int returnVal = chooser.showSaveDialog(glavniProzor);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			    	Funkcije.save(gen.getMatrica(), sati, minuti, sekunde, chooser.getSelectedFile());
+			    }
+			    Funkcije.nastavi();
 			}
 		});
 		mnFile.add(mntmSave);
