@@ -21,6 +21,7 @@ public class Rezultat implements Serializable{
 		this.sati=sati;
 	}
 
+
 	public Rezultat(int sekunde, int minuti, int sati){
 		this.sekunde=sekunde;
 		this.minuti=minuti;
@@ -39,12 +40,24 @@ public class Rezultat implements Serializable{
 		return sekunde;
 	}
 
+	public void setSekunde(int sekunde) {
+		this.sekunde = sekunde;
+	}
+	
 	public int getMinuti() {
 		return minuti;
 	}
 
+	public void setMinuti(int minuti) {
+		this.minuti = minuti;
+	}
+	
 	public int getSati() {
 		return sati;
+	}
+	
+	public void setSati(int sati) {
+		this.sati = sati;
 	}
 
 	

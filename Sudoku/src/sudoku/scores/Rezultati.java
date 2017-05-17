@@ -1,5 +1,6 @@
 package sudoku.scores;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,18 +26,18 @@ public class Rezultati implements Serializable {
 			return 0;
 		}
 		
+		int time = rez.getSati()*3600 + rez.getMinuti()*60 + rez.getSekunde();
 		for(int i = 0; i < lista.size(); i++){
 			
-			if(lista.get(i).getSati() < rez.getSati())
-				continue;
-			
-			if(lista.get(i).getMinuti() < rez.getMinuti())
-				continue;
-			
-			if(lista.get(i).getSekunde() < rez.getSekunde())
-				continue;
-			
-			return i;
+			Rezultat rez2 = lista.get(i);
+			int time2 = rez2.getSati()*3600 + rez2.getMinuti()*60 + rez2.getSekunde();
+			if(time < time2) {
+				return i;
+			}
+		}
+		
+		if(lista.size()<10) {
+			return lista.size();
 		}
 		
 		return -1;
@@ -52,7 +53,7 @@ public class Rezultati implements Serializable {
 	
 	public void serialize() {
     	try {
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File("src/sudoku/scores/Highscore")));
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File("highscores/Highscores.dat")));
 			out.writeObject(this);
 			out.flush();
 			out.close();
@@ -66,9 +67,12 @@ public class Rezultati implements Serializable {
     public static Rezultati deserialize() {
     	Rezultati rezultati = null;
     	try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File("src/sudoku/scores/Highscore")));
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File("highscores/Highscores.dat")));
 			rezultati = (Rezultati) in.readObject();
 			in.close();
+    	} catch (EOFException e) {
+    		rezultati = new Rezultati();
+    		rezultati.setLista(new LinkedList<Rezultat>());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

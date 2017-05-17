@@ -13,6 +13,7 @@ import sudoku.gui.SudokuMainWindow;
 import sudoku.scores.Rezultat;
 import sudoku.scores.Rezultati;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 
@@ -104,9 +105,8 @@ public class Funkcije {
 		int index = rezultati.proveriRezultat(rez);
 		String ime = "";
 		if(index != -1) {
-			//TODO kada se uradi tronivovska u gui kontroleru dodati staticku metodu koja ce se pozvati
-			//odavde i koja ce traziti unos imena za highscore, ukoliko se ne unese ime
-			//postaviti neko default ime
+			ime = (String)JOptionPane.showInputDialog(null, "Enter your name:", "Highscore name", 
+	                JOptionPane.PLAIN_MESSAGE, null, null, "");
 		}
 		rez.setIme(ime);
 		rezultati.dodajRezultat(rez, index);

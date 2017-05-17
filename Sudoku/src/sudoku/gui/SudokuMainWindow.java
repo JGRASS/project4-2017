@@ -8,6 +8,7 @@ import net.miginfocom.swing.MigLayout;
 import sudoku.Igra;
 import sudoku.funkcije.Funkcije;
 import sudoku.generator.GeneratorProvera;
+import sudoku.scores.Rezultati;
 
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -353,7 +354,10 @@ public class SudokuMainWindow extends JFrame {
 		mntmScoreboard = new JMenuItem("Scoreboard");
 		mntmScoreboard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO odavde pozvati novi prozor koji ce u tabeli da ispise listu top10
+				Funkcije.pause(tajmer);
+				Rezultati rezultati = Rezultati.deserialize();
+				Highscore frame = new Highscore(rezultati.getLista());
+				frame.setVisible(true);
 			}
 		});
 		
