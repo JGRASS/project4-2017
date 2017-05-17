@@ -290,6 +290,7 @@ public class SudokuMainWindow extends JFrame {
 			    	GUIKontroler.nastavi();
 			    	gen.setMatrica(igra.getMatrica());
 			    	ispisMatriceUInterfejs();
+			    	GUIKontroler.otkljucajSvaIZakljucajGenerisana(matricaPolja, gen.getMatrica());
 			    	return;
 			    }
 			    GUIKontroler.nastavi();

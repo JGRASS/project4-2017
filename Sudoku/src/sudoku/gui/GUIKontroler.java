@@ -66,6 +66,7 @@ public class GUIKontroler {
 
 		gen.generisati();
 
+		Funkcije.obrisiRandomPolja(gen.getMatrica());
 		otkljucajSvaIZakljucajGenerisana(matricaPolja, gen.getMatrica());
 	}
 	
@@ -79,14 +80,12 @@ public class GUIKontroler {
 	 * @param matrica
 	 * 						 matrica svih brojeva koji su generisani ili uneseni od strane igraca.
 	 */
-	private static void otkljucajSvaIZakljucajGenerisana(JTextField[][] matricaPolja, Polje[][] matrica) {
+	public static void otkljucajSvaIZakljucajGenerisana(JTextField[][] matricaPolja, Polje[][] matrica) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				matricaPolja[i][j].setEditable(true);
 			}
 		}
-
-		Funkcije.obrisiRandomPolja(matrica);
 
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {

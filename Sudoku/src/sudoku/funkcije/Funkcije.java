@@ -30,39 +30,39 @@ public class Funkcije {
 			switch (i) {
 			case 1: 
 				count = 2 + rnd.nextInt(2);
-				obrisiRandomPoljaUDatomRasponu(count, 0, 2, 0, 2, matrica);
+				obrisiRandomPoljaUDatomRasponu(count, 0, 0, matrica);
 				break;
 			case 2:  
 				count = 2 + rnd.nextInt(2);
-				obrisiRandomPoljaUDatomRasponu(count, 3, 5, 0, 2, matrica);
+				obrisiRandomPoljaUDatomRasponu(count, 3, 0, matrica);
 				break;
 			case 3: 
 				count = 2 + rnd.nextInt(2);
-				obrisiRandomPoljaUDatomRasponu(count, 6, 8, 0, 2, matrica);
+				obrisiRandomPoljaUDatomRasponu(count, 6, 0, matrica);
 				break;
 			case 4: 
 				count = 2 + rnd.nextInt(2);
-				obrisiRandomPoljaUDatomRasponu(count, 0, 2, 3, 5, matrica);
+				obrisiRandomPoljaUDatomRasponu(count, 0, 3, matrica);
 				break;
 			case 5: 
 				count = 2 + rnd.nextInt(2);
-				obrisiRandomPoljaUDatomRasponu(count, 3, 5, 3, 5, matrica);
+				obrisiRandomPoljaUDatomRasponu(count, 3, 3, matrica);
 				break;
 			case 6: 
 				count = 2 + rnd.nextInt(2);
-				obrisiRandomPoljaUDatomRasponu(count, 6, 6, 3, 5, matrica);
+				obrisiRandomPoljaUDatomRasponu(count, 6, 3, matrica);
 				break;
 			case 7: 
 				count = 2 + rnd.nextInt(2);
-				obrisiRandomPoljaUDatomRasponu(count, 0, 2, 6, 8, matrica);
+				obrisiRandomPoljaUDatomRasponu(count, 0, 6, matrica);
 				break;
 			case 8: 
 				count = 2 + rnd.nextInt(2);
-				obrisiRandomPoljaUDatomRasponu(count, 3, 5, 6, 8, matrica);
+				obrisiRandomPoljaUDatomRasponu(count, 3, 6, matrica);
 				break;
 			case 9: 
 				count = 2 + rnd.nextInt(2);
-				obrisiRandomPoljaUDatomRasponu(count, 6, 8, 6, 8, matrica);
+				obrisiRandomPoljaUDatomRasponu(count, 6, 6, matrica);
 				break;
 			default:
 				break;
@@ -71,15 +71,14 @@ public class Funkcije {
 	}
 	
 	/**
-	 * Metoda koja brise polja u datom rasponu.
-	 * @param count
-	 * @param minX
-	 * @param maxX
-	 * @param minY
-	 * @param maxY
-	 * @param matrica
+	 * Metoda koja brise polja u datom rasponu. Dati raspon se odnosi na kvadrate 3x3 tako da vrednosti minX i minY mogu biti 0, 3 i 6.
+	 * 
+	 * @param count broj polja koja ce biti obrisana u odredjenom kvadratu
+	 * @param minX x koordinata od koje ce poceti nasumicno brisanje (predstavlja pocetak kvadrata na x osi)
+	 * @param minY y koordinata od koje ce poceti nasumicno brisanje (predstavlja pocetak kvadrata na y osi)
+	 * @param matrica matrica svih brojeva koji su generisani ili uneseni od strane igraca.
 	 */
-	private static void obrisiRandomPoljaUDatomRasponu(int count, int minX, int maxX, int minY, int maxY, Polje[][] matrica) {
+	private static void obrisiRandomPoljaUDatomRasponu(int count, int minX, int minY, Polje[][] matrica) {
 		while(count >= 0) {
 			int x = minX + rnd.nextInt(3);
 			int y = minY + rnd.nextInt(3);
@@ -93,7 +92,7 @@ public class Funkcije {
 	/**
 	 * Metoda koja proverava tacnost sudokua.
 	 * @param gen
-	 * 				Klasa koja sadrzi matricu brojeva koji se koriste u trenutnoj igri, metode za
+	 * 				Objekat koji sadrzi matricu brojeva koji se koriste u trenutnoj igri, metode za
 	 * 				upravljanje njome i metodu za generisanje pocetnih vrednosti u novoj igri.
 	 * @return vraca true ako je resenje dobro, a false ako nije.
 	 */
@@ -132,11 +131,12 @@ public class Funkcije {
 	}
 	
 	/**
+	 * Metoda koja proverava da li postoje ponavljana u zadatom kvadratu.
 	 * 
-	 * @param gen
-	 * @param minX
-	 * @param minY
-	 * @return
+	 * @param gen Objekat klase GeneratorProvera koji sadrzi matricu svih generisanih polja
+	 * @param minX x koordinata od koje ce poceti nasumicno brisanje (predstavlja pocetak kvadrata na x osi)
+	 * @param minY y koordinata od koje ce poceti nasumicno brisanje (predstavlja pocetak kvadrata na y osi)
+	 * @return vraca false ukoliko postoje ponavljanja u zadatom kvadratu
 	 */
 	private static boolean proveriKvadrat(GeneratorProvera gen, int minX, int minY) {
 		for (int red = minY; red < minY + 3; red++) {
