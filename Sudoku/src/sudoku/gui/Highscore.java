@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
-import sudoku.funkcije.Funkcije;
 import sudoku.scores.Rezultat;
 
 import javax.swing.JButton;
@@ -72,7 +71,7 @@ public class Highscore extends JFrame {
 			btnClose = new JButton("Close");
 			btnClose.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Funkcije.nastavi();
+					GUIKontroler.nastavi();
 					dispose();
 				}
 			});

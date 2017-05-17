@@ -1,125 +1,20 @@
 package sudoku.funkcije;
 
 
-import java.io.File;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import sudoku.Igra;
 import sudoku.Polje;
 import sudoku.generator.GeneratorProvera;
-import sudoku.gui.SudokuMainWindow;
-import sudoku.scores.Rezultat;
-import sudoku.scores.Rezultati;
-
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 
 public class Funkcije {
 
-	public static boolean pauza = true;
-	static Random rnd = new Random();
+	private static Random rnd = new Random();
 	
 
-	public static void pauziraj(Timer tajmer) {
-		if(pauza){
-			pause(tajmer);
-			return;
-		}
-		nastavi();
-	}
-
-	public static void pause(Timer tajmer) {
-		tajmer.cancel();
-		pauza=false;
-	}
-
-	public static void nastavi() {
-
-		SudokuMainWindow.tajmer = new Timer();
-		SudokuMainWindow.ispisiVreme = new TimerTask(){
-
-			public void run(){
-				SudokuMainWindow.sekunde++;
-				if(SudokuMainWindow.sekunde==60){
-					SudokuMainWindow.sekunde=0;
-					SudokuMainWindow.minuti++;
-				}
-				if(SudokuMainWindow.minuti==60){
-					SudokuMainWindow.minuti=0;
-					SudokuMainWindow.sati++;
-				}
-				SudokuMainWindow.textTimeField.setText(SudokuMainWindow.sati+":"+SudokuMainWindow.minuti+":"+SudokuMainWindow.sekunde);
-			}
-
-		};
-		SudokuMainWindow.tajmer.scheduleAtFixedRate(SudokuMainWindow.ispisiVreme,1000,1000);
-
-		pauza=true;
-
-	}
-
-	public static void newGame(JTextField[][] matricaPolja, GeneratorProvera gen) {
-
-		SudokuMainWindow.sekunde=0;
-		SudokuMainWindow.minuti=0;
-		SudokuMainWindow.sati=0;
-		pause(SudokuMainWindow.tajmer);
-		nastavi();
-
-		gen.generisati();
-
-		Funkcije.otkljucajSvaIZakljucajGenerisana(matricaPolja, gen.getMatrica());
-		Funkcije.ispisMatriceUInterfejs(matricaPolja, gen.getMatrica());
-	}
-
 	
-	public static Igra openGame(File file) {
-		return Igra.deserialize(file);
-	}
-	
-	public static void save(Polje[][] matrica, int sati, int minuti, int sekunde, File file) {
-		Igra igra = new Igra(matrica, sati, minuti, sekunde);
-		igra.serialize(file);
-		
-	}
 
-	public static void reset(JTextField[][] matricaPolja, Polje[][] matrica) {
-		
-		for(int i = 0; i < 9; i++){
-			for(int j = 0; j < 9; j++){
-				if(!matrica[i][j].isZakljucano()){
-					matrica[i][j].setUnesenaVrednost(0);
-					matricaPolja[i][j].setText("");
-				}
-			}
-		}
-		
-	}
-	
-	public static void updateHighscore(int sati, int minuti, int sekunde){
-		Rezultati rezultati = Rezultati.deserialize();
-		Rezultat rez = new Rezultat(sekunde, minuti, sati);
-		int index = rezultati.proveriRezultat(rez);
-		String ime = "";
-		if(index != -1) {
-			ime = (String)JOptionPane.showInputDialog(null, "Enter your name:", "Highscore name", 
-	                JOptionPane.PLAIN_MESSAGE, null, null, "");
-		}
-		rez.setIme(ime);
-		rezultati.dodajRezultat(rez, index);
-		rezultati.serialize();
-	}
-
-	public static void otkljucajSvaIZakljucajGenerisana(JTextField[][] matricaPolja, Polje[][] matrica) {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				matricaPolja[i][j].setEditable(true);
-			}
-		}
-
+	public static void obrisiRandomPolja(Polje[][] matrica) {
 		for (int i = 1; i <= 9; i++) {
 			int count;
 			switch (i) {
@@ -163,14 +58,6 @@ public class Funkcije {
 				break;
 			}
 		}
-
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if(matrica[i][j].isZakljucano()) {
-					matricaPolja[i][j].setEditable(false);
-				}
-			}
-		}
 	}
 
 	private static void obrisiRandomPoljaUDatomRasponu(int count, int minX, int maxX, int minY, int maxY, Polje[][] matrica) {
@@ -180,25 +67,6 @@ public class Funkcije {
 			if(!matrica[x][y].isZakljucano()) {
 				matrica[x][y].setZakljucano(true);
 				count--;
-			}
-		}
-	}
-
-	public static void ispisMatriceUInterfejs(JTextField[][] matricaPolja, Polje[][] matrica) {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				matricaPolja[i][j].setText("");
-			}
-		}
-
-
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if (matrica[i][j].isZakljucano()) {
-					matricaPolja[i][j].setText(matrica[i][j].getGenerisanaVrednost() + "");
-				} else if(matrica[i][j].getUnesenaVrednost() != 0) {
-					matricaPolja[i][j].setText(matrica[i][j].getUnesenaVrednost() + "");
-				}
 			}
 		}
 	}

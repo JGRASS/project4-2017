@@ -1,12 +1,10 @@
 package sudoku.gui;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import net.miginfocom.swing.MigLayout;
 import sudoku.Igra;
-import sudoku.funkcije.Funkcije;
 import sudoku.generator.GeneratorProvera;
 import sudoku.scores.Rezultati;
 
@@ -92,7 +90,7 @@ public class SudokuMainWindow extends JFrame {
 		tajmer.scheduleAtFixedRate(ispisiVreme,1000,1000);
 	}
 	
-	private JFrame frmSudokuGame;
+	JFrame frmSudokuGame;
 	private JPanel southPanel;
 	private JPanel centralPanel;
 	private JPanel eastPanel;
@@ -192,25 +190,6 @@ public class SudokuMainWindow extends JFrame {
 	private SudokuMainWindow glavniProzor = this;
 	
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SudokuMainWindow window = new SudokuMainWindow();
-					window.frmSudokuGame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		pokreniTajmer(tajmer);
-
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public SudokuMainWindow() {
@@ -221,16 +200,17 @@ public class SudokuMainWindow extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		pokreniTajmer(tajmer);
 		frmSudokuGame = new JFrame();
 		frmSudokuGame.getContentPane().addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyChar()==' '){
-					Funkcije.pause(tajmer);
+					GUIKontroler.pause(tajmer);
 					centralPanel.setVisible(false);
 					JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 					centralPanel.setVisible(true);
-					Funkcije.nastavi();
+					GUIKontroler.nastavi();
 				}
 			}
 		});
@@ -238,11 +218,11 @@ public class SudokuMainWindow extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyChar()==' '){
-					Funkcije.pause(tajmer);
+					GUIKontroler.pause(tajmer);
 					centralPanel.setVisible(false);
 					JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 					centralPanel.setVisible(true);
-					Funkcije.nastavi();
+					GUIKontroler.nastavi();
 				}
 			}
 		});
@@ -264,7 +244,8 @@ public class SudokuMainWindow extends JFrame {
 		mntmNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				Funkcije.newGame(matricaPolja, gen);
+				GUIKontroler.newGame(matricaPolja, gen);
+				ispisMatriceUInterfejs();
 			}
 		});
 		mnFile.add(mntmNewGame);
@@ -273,7 +254,7 @@ public class SudokuMainWindow extends JFrame {
 		mntmOpenGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Funkcije.pause(tajmer);
+				GUIKontroler.pause(tajmer);
 				File dir = new File(".");
 				StringBuffer projectDir = new StringBuffer(dir.getAbsolutePath());
 				projectDir.deleteCharAt(projectDir.length()-1);
@@ -282,16 +263,17 @@ public class SudokuMainWindow extends JFrame {
 			    chooser.setFileFilter(filter);
 			    int returnVal = chooser.showOpenDialog(glavniProzor);
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			    	Igra igra = Funkcije.openGame(chooser.getSelectedFile());
-			    	Funkcije.pause(tajmer);
+			    	Igra igra = GUIKontroler.openGame(chooser.getSelectedFile());
+			    	GUIKontroler.pause(tajmer);
 			    	sati = igra.getSati();
 			    	minuti = igra.getMinuti();
 			    	sekunde = igra.getSekunde();
-			    	Funkcije.nastavi();
-			    	Funkcije.ispisMatriceUInterfejs(matricaPolja, igra.getMatrica());
+			    	GUIKontroler.nastavi();
+			    	gen.setMatrica(igra.getMatrica());
+			    	ispisMatriceUInterfejs();
 			    	return;
 			    }
-			    Funkcije.nastavi();
+			    GUIKontroler.nastavi();
 			}
 		});
 		mnFile.add(mntmOpenGame);
@@ -300,7 +282,7 @@ public class SudokuMainWindow extends JFrame {
 		mntmSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Funkcije.pause(tajmer);
+				GUIKontroler.pause(tajmer);
 				File dir = new File(".");
 				StringBuffer projectDir = new StringBuffer(dir.getAbsolutePath());
 				projectDir.deleteCharAt(projectDir.length()-1);
@@ -309,9 +291,9 @@ public class SudokuMainWindow extends JFrame {
 			    chooser.setFileFilter(filter);
 			    int returnVal = chooser.showSaveDialog(glavniProzor);
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			    	Funkcije.save(gen.getMatrica(), sati, minuti, sekunde, chooser.getSelectedFile());
+			    	GUIKontroler.save(gen.getMatrica(), sati, minuti, sekunde, chooser.getSelectedFile());
 			    }
-			    Funkcije.nastavi();
+			    GUIKontroler.nastavi();
 			}
 		});
 		mnFile.add(mntmSave);
@@ -321,11 +303,11 @@ public class SudokuMainWindow extends JFrame {
 		mntmPause.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Funkcije.pause(tajmer);
+				GUIKontroler.pause(tajmer);
 				centralPanel.setVisible(false);
 				JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 				centralPanel.setVisible(true);
-				Funkcije.nastavi();
+				GUIKontroler.nastavi();
 			}
 		});
 		mnFile.add(mntmPause);
@@ -334,7 +316,14 @@ public class SudokuMainWindow extends JFrame {
 		mntmReset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Funkcije.reset(matricaPolja, gen.getMatrica());
+				for(int i = 0; i < 9; i++){
+					for(int j = 0; j < 9; j++){
+						if(!gen.getMatrica()[i][j].isZakljucano()){
+							matricaPolja[i][j].setText("");
+						}
+					}
+				}
+				GUIKontroler.reset(gen.getMatrica());
 			}
 		});
 		mnFile.add(mntmReset);
@@ -354,7 +343,7 @@ public class SudokuMainWindow extends JFrame {
 		mntmScoreboard = new JMenuItem("Scoreboard");
 		mntmScoreboard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Funkcije.pause(tajmer);
+				GUIKontroler.pause(tajmer);
 				Rezultati rezultati = Rezultati.deserialize();
 				Highscore frame = new Highscore(rezultati.getLista());
 				frame.setVisible(true);
@@ -378,10 +367,12 @@ public class SudokuMainWindow extends JFrame {
 									  {textField_60, textField_61, textField_62, textField_69, textField_70 ,textField_71, textField_78, textField_79, textField_80}
 		};
 		
-		Funkcije.newGame(matricaPolja, gen);
+		GUIKontroler.newGame(matricaPolja, gen);
+		ispisMatriceUInterfejs();
 									  
 									  
 	}
+
 
 	private JPanel getSouthPanel() {
 		if (southPanel == null) {
@@ -396,11 +387,11 @@ public class SudokuMainWindow extends JFrame {
 			southPanel.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()== ' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -416,11 +407,11 @@ public class SudokuMainWindow extends JFrame {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 						
 				}
@@ -459,11 +450,11 @@ public class SudokuMainWindow extends JFrame {
 				public void keyPressed(KeyEvent e) {
 					char c = e.getKeyChar();
 					if(c == ' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -484,8 +475,8 @@ public class SudokuMainWindow extends JFrame {
 			btnPause.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if(Funkcije.pauza) {
-						Funkcije.pause(tajmer);						
+					if(GUIKontroler.pauza) {
+						GUIKontroler.pause(tajmer);						
 					   
 					    
 					    final JOptionPane pane = new JOptionPane("Pritisnite OK da biste nastavili igru!",JOptionPane.INFORMATION_MESSAGE);
@@ -498,10 +489,10 @@ public class SudokuMainWindow extends JFrame {
 						
 						centralPanel.setVisible(true);
 					
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 						} else {
 						btnPause.setText("Pause");
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -527,11 +518,11 @@ public class SudokuMainWindow extends JFrame {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -709,11 +700,11 @@ public class SudokuMainWindow extends JFrame {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -891,11 +882,11 @@ public class SudokuMainWindow extends JFrame {
 				
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -1073,11 +1064,11 @@ public class SudokuMainWindow extends JFrame {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -1255,11 +1246,11 @@ public class SudokuMainWindow extends JFrame {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -1437,11 +1428,11 @@ public class SudokuMainWindow extends JFrame {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -1619,11 +1610,11 @@ public class SudokuMainWindow extends JFrame {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -1801,11 +1792,11 @@ public class SudokuMainWindow extends JFrame {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 				}
 			});
@@ -1983,11 +1974,11 @@ public class SudokuMainWindow extends JFrame {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					if(e.getKeyChar()==' '){{
-						Funkcije.pause(tajmer);
+						GUIKontroler.pause(tajmer);
 						centralPanel.setVisible(false);
 						JOptionPane.showMessageDialog(null,"Pritisnite OK da biste nastavili igru!","Igra je zaustavljena",JOptionPane.INFORMATION_MESSAGE);
 						centralPanel.setVisible(true);
-						Funkcije.nastavi();
+						GUIKontroler.nastavi();
 					}
 					}
 				}
@@ -2196,11 +2187,11 @@ public class SudokuMainWindow extends JFrame {
 			gen.unesiBroj(Integer.parseInt(arg0.getKeyChar() + ""), x, y);
 		}
 		if (c == ' ') {
-			Funkcije.pause(tajmer);
+			GUIKontroler.pause(tajmer);
 			centralPanel.setVisible(false);
 			JOptionPane.showMessageDialog(null, "Pritisnite OK da biste nastavili igru!", "Igra je zaustavljena", JOptionPane.INFORMATION_MESSAGE);
 			centralPanel.setVisible(true);
-			Funkcije.nastavi();
+			GUIKontroler.nastavi();
 		}
 	}
 
@@ -2213,17 +2204,36 @@ public class SudokuMainWindow extends JFrame {
 				}
 			}
 		}
-		if(!Funkcije.proveraSudokua(gen)) {
+		if(!GUIKontroler.proveraSudokua(gen)) {
 			JOptionPane.showMessageDialog(glavniProzor, "Napravili ste gresku.", "Greska!", JOptionPane.ERROR_MESSAGE);
 		} else {
-			Funkcije.updateHighscore(sati, minuti, sekunde);
+			GUIKontroler.updateHighscore(sati, minuti, sekunde);
 			Object[] options = {"Da", "Ne"};
 			int n = JOptionPane.showOptionDialog(glavniProzor, "Uspesno ste zavrsili igru. Da li zelite da zapocnete novu igru?", "Cestitamo!", 
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			if(n == 0) {
-				Funkcije.newGame(matricaPolja, gen);
+				GUIKontroler.newGame(matricaPolja, gen);
+				ispisMatriceUInterfejs();
 			} else {
 				System.exit(0);
+			}
+		}
+	}
+	
+	protected void ispisMatriceUInterfejs() {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				matricaPolja[i][j].setText("");
+			}
+		}
+
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (gen.getMatrica()[i][j].isZakljucano()) {
+					matricaPolja[i][j].setText(gen.getMatrica()[i][j].getGenerisanaVrednost() + "");
+				} else if (gen.getMatrica()[i][j].getUnesenaVrednost() != 0) {
+					matricaPolja[i][j].setText(gen.getMatrica()[i][j].getUnesenaVrednost() + "");
+				}
 			}
 		}
 	}
