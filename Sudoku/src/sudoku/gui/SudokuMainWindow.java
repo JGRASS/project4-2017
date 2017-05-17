@@ -62,16 +62,30 @@ public class SudokuMainWindow extends JFrame {
 	 */
 	GeneratorProvera gen = new GeneratorProvera();
 	
-
+	/**
+	 * broj koji predstavlja sekunde u tajmeru
+	 */
 	public static int sekunde = 0;
+	/**
+	 * broj koji predstavlja minute u tajmeru
+	 */
 	public static int minuti = 0;
+	/**
+	 * broj koji predstavlja sate u tajmeru
+	 */
 	public static int sati = 0;
-	
+	/**
+	 * tajmer
+	 */
 	public static Timer tajmer = new Timer();
-	
+	/**
+	 * tajmer task za ispisivanje vremena
+	 */
 	public static TimerTask ispisiVreme = new TimerTask(){
-		
-		public void run(){
+	/**
+	 * metoda za rad tajmera i ispis vremena u text box
+	 */
+	public void run(){
 			sekunde++;
 			if(sekunde==60){
 				sekunde=0;
@@ -85,7 +99,12 @@ public class SudokuMainWindow extends JFrame {
 		}
 		
 	};
-	
+	/**
+	 * Metoda za pokretanje tajmera
+	 * @param tajmer
+	 *            predstavlja tajmer koji je potrebno pokerenuti
+	 */
+
 	public static void pokreniTajmer(Timer tajmer){
 		tajmer.scheduleAtFixedRate(ispisiVreme,1000,1000);
 	}
@@ -314,7 +333,9 @@ public class SudokuMainWindow extends JFrame {
 		
 		JMenuItem mntmReset = new JMenuItem("Reset");
 		mntmReset.addMouseListener(new MouseAdapter() {
-			@Override
+			/**
+			 * Klikom na dugme reset resetuje se igra na pocetak, sva polja koje je korisnik popunio brisu se ostaju samo oni generisani na pocetku
+			 */
 			public void mousePressed(MouseEvent e) {
 				for(int i = 0; i < 9; i++){
 					for(int j = 0; j < 9; j++){
@@ -2194,7 +2215,12 @@ public class SudokuMainWindow extends JFrame {
 			GUIKontroler.nastavi();
 		}
 	}
-
+	/**
+	 * Metoda koja proverava sudoku, da li su sva polja popunjena, ukoliko nisu otvara se novi prozor koji pokazuje gresku,
+	 * a ukoliko su sva polja popunjena proverava da li su ispravno popunjena ukoliko nisu prikazuje gresku, a ukoliko jesu vas rezultat upisuje u tabelu rezultat i cestita na uspesno zavrsenoj igri
+	 * 
+	 * 
+	 */
 	private void check() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -2219,7 +2245,10 @@ public class SudokuMainWindow extends JFrame {
 			}
 		}
 	}
-	
+	/**
+	 * Metoda koja ispisuje generisane brojeve u matricu polja.
+	 *  
+	 */
 	protected void ispisMatriceUInterfejs() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
