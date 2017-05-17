@@ -9,15 +9,47 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * Klasa koja sarzi podatke o trenutnoj igri.
+ * @author Team4-2017
+ *
+ */
 public class Igra implements Serializable {
 	
 	private static final long serialVersionUID = -3744400206205691032L;
 	
+	/**
+	 * Matrica svih brojeva koji su generisani ili uneseni od strane igraca.
+	 */
 	private Polje[][] matrica;
+	
+	/**
+	 * Broj sati proteklih tokom igre.
+	 */
 	private int sati;
+	
+	/**
+	 * Broj minuta proteklih tokom igre.
+	 */
 	private int minuti;
+	
+	/**
+	 * Broj sekundi proteklih tokom igre.
+	 */
 	private int sekunde;
 	
+	/**
+	 * Javni konstuktor koji postavlja vrednosti atributa klase
+	 * Igra na vrednosti odgovarajucih ulaznih parametara.
+	 * @param matrica
+	 * 					Matrica svih brojeva koji su generisani ili uneseni od strane igraca.
+	 * @param sati
+	 * 					Broj sati proteklih tokom igre.
+	 * @param minuti
+	 * 					Broj minuta proteklih tokom igre.
+	 * @param sekunde
+	 * 					Broj sekundi proteklih tokom igre.
+	 */
 	public Igra(Polje[][] matrica, int sati, int minuti, int sekunde) {
 		super();
 		this.matrica = matrica;
@@ -26,6 +58,11 @@ public class Igra implements Serializable {
 		this.sekunde = sekunde;
 	}
 	
+	/**
+	 * Metoda koja serijalizuje Igra u zadatu fajlu
+	 * @param file
+	 * 				predstavlja fajlu u koju se sacuvava partija.
+	 */
 	public void serialize(File file) {
     	try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
@@ -39,6 +76,12 @@ public class Igra implements Serializable {
 		}
     }
     
+	/**
+	 * Otvara sacuvanu igru iz fajle.
+	 * @param file
+	 * 				predstavlja fajlu u kojoj se nalazi sacuvana partija.
+	 * @return vraca igru koja se nalazi u toj fajli.
+	 */
     public static Igra deserialize(File file) {
     	Igra igra = null;
     	try {

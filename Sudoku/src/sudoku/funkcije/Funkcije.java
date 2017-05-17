@@ -6,14 +6,24 @@ import java.util.Random;
 import sudoku.Polje;
 import sudoku.generator.GeneratorProvera;
 
-
+/**
+ * Klasa koja sadrzi funkcije za brisanje nasumicnih polja i proveru tacnosti sudokua.
+ * @author Team4-2017
+ *
+ */
 public class Funkcije {
-
+	/**
+	 * instanca klase Random koja sluzi da prilikom poziva vrati nasumican broj.
+	 */
 	private static Random rnd = new Random();
 	
 
 	
-
+	/**
+	 * Metoda koja brise nasumicno polja iz matrice.
+	 * @param matrica
+	 * 					matrica svih brojeva koji su generisani ili uneseni od strane igraca.
+	 */
 	public static void obrisiRandomPolja(Polje[][] matrica) {
 		for (int i = 1; i <= 9; i++) {
 			int count;
@@ -59,7 +69,16 @@ public class Funkcije {
 			}
 		}
 	}
-
+	
+	/**
+	 * Metoda koja brise polja u datom rasponu.
+	 * @param count
+	 * @param minX
+	 * @param maxX
+	 * @param minY
+	 * @param maxY
+	 * @param matrica
+	 */
 	private static void obrisiRandomPoljaUDatomRasponu(int count, int minX, int maxX, int minY, int maxY, Polje[][] matrica) {
 		while(count >= 0) {
 			int x = minX + rnd.nextInt(3);
@@ -70,7 +89,14 @@ public class Funkcije {
 			}
 		}
 	}
-
+	
+	/**
+	 * Metoda koja proverava tacnost sudokua.
+	 * @param gen
+	 * 				Klasa koja sadrzi matricu brojeva koji se koriste u trenutnoj igri, metode za
+	 * 				upravljanje njome i metodu za generisanje pocetnih vrednosti u novoj igri.
+	 * @return vraca true ako je resenje dobro, a false ako nije.
+	 */
 	public static boolean proveraSudokua(GeneratorProvera gen){
 		//red
 		for (int red = 0; red < 9; red++)
@@ -105,6 +131,13 @@ public class Funkcije {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param gen
+	 * @param minX
+	 * @param minY
+	 * @return
+	 */
 	private static boolean proveriKvadrat(GeneratorProvera gen, int minX, int minY) {
 		for (int red = minY; red < minY + 3; red++) {
 			for (int kolona = minX; kolona < minX + 3; kolona++) {

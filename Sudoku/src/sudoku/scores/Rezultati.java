@@ -11,12 +11,25 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+/**
+ * Klasa u kojoj se nalazi lista najboljih 10 rezultata.
+ * @author Team4-2017
+ *
+ */
 public class Rezultati implements Serializable {
 	
 	private static final long serialVersionUID = -1876760401083044677L;
-
+	/**
+	 * Predstavlja listu sa najboljih 10 rezultata.
+	 */
 	private LinkedList<Rezultat> lista;
 	
+	/**
+	 * Metoda koja vraca poziciju igraca
+	 * @param rez
+	 * 				Klasa koja sadrzi podatke o rezultatu datog igraca.
+	 * @return vraca poziciju datog igraca
+	 */
 	public int proveriRezultat(Rezultat rez) {
 		if(lista == null){
 			lista = new LinkedList<Rezultat>();
@@ -44,13 +57,22 @@ public class Rezultati implements Serializable {
 	
 	}
 	
+	/**
+	 * Metoda koja postavlja igrace na date pozicije u listi.
+	 * @param rez
+	 * 				Klasa koja sadrzi podatke o rezultatu datog igraca.
+	 * @param i
+	 * 				pozicija na kojoj se nalazi dati igrac.
+	 */
 	public void dodajRezultat(Rezultat rez, int i) {
 		lista.add(i, rez);
 		while(lista.size() > 10)
 			lista.removeLast();
 	}
 	
-	
+	/**
+	 * Metoda koja serijalizuje listu igraca u fajlu Highscores.dat.
+	 */
 	public void serialize() {
     	try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(new File("highscores/Highscores.dat")));
@@ -64,6 +86,10 @@ public class Rezultati implements Serializable {
 		}
     }
     
+	/**
+	 * Metoda koja deserijalizuje listu iz fajle Highscores.dat.
+	 * @return
+	 */
     public static Rezultati deserialize() {
     	Rezultati rezultati = null;
     	try {
