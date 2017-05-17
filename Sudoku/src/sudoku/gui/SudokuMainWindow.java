@@ -2234,6 +2234,8 @@ public class SudokuMainWindow extends JFrame {
 		if(!GUIKontroler.proveraSudokua(gen)) {
 			JOptionPane.showMessageDialog(glavniProzor, "Napravili ste gresku.", "Greska!", JOptionPane.ERROR_MESSAGE);
 		} else {
+
+			GUIKontroler.pauziraj(tajmer);
 			GUIKontroler.updateHighscore(sati, minuti, sekunde);
 			Object[] options = {"Da", "Ne"};
 			int n = JOptionPane.showOptionDialog(glavniProzor, "Uspesno ste zavrsili igru. Da li zelite da zapocnete novu igru?", "Cestitamo!", 
