@@ -114,6 +114,8 @@ public class Rezultati implements Serializable {
 	}
 
 	public void setLista(LinkedList<Rezultat> lista) {
+		if(lista == null)
+			throw new RuntimeException();
 		this.lista = lista;
 	}
 }

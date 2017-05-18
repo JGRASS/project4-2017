@@ -65,12 +65,16 @@ public class Polje implements Serializable {
 		return generisanaVrednost;
 	}
 	public void setGenerisanaVrednost(int generisanaVrednost) {
+		if(generisanaVrednost < 0 || generisanaVrednost > 9)
+			throw new RuntimeException();
 		this.generisanaVrednost = generisanaVrednost;
 	}
 	public int getUnesenaVrednost() {
 		return unesenaVrednost;
 	}
 	public void setUnesenaVrednost(int unesenaVrednost) {
+		if(unesenaVrednost < 0 || unesenaVrednost > 9)
+			throw new RuntimeException();
 		this.unesenaVrednost = unesenaVrednost;
 	}
 	public boolean isZakljucano() {

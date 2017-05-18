@@ -39,6 +39,12 @@ public class Igra implements Serializable {
 	private int sekunde;
 	
 	/**
+	 * Javni konstruktor klase Igra bez ulaznih parametara.
+	 */
+	public Igra() {
+	}
+	
+	/**
 	 * Javni konstuktor koji postavlja vrednosti atributa klase
 	 * Igra na vrednosti odgovarajucih ulaznih parametara.
 	 * @param matrica
@@ -102,24 +108,32 @@ public class Igra implements Serializable {
 		return matrica;
 	}
 	public void setMatrica(Polje[][] matrica) {
+		if(matrica == null)
+			throw new RuntimeException();
 		this.matrica = matrica;
 	}
 	public int getSati() {
 		return sati;
 	}
 	public void setSati(int sati) {
+		if(sati < 0 || sati > 59)
+			throw new RuntimeException();
 		this.sati = sati;
 	}
 	public int getMinuti() {
 		return minuti;
 	}
 	public void setMinuti(int minuti) {
+		if(minuti < 0 || minuti > 59)
+			throw new RuntimeException();
 		this.minuti = minuti;
 	}
 	public int getSekunde() {
 		return sekunde;
 	}
 	public void setSekunde(int sekunde) {
+		if(sekunde < 0 || sekunde > 59)
+			throw new RuntimeException();
 		this.sekunde = sekunde;
 	}
 }

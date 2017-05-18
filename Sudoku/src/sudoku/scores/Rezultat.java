@@ -36,6 +36,12 @@ public class Rezultat implements Serializable{
 	private int sati;
 	
 	/**
+	 * Javni konstruktor klase Rezultat bez ulaznih parametara.
+	 */
+	public Rezultat() {
+	}
+	
+	/**
 	 * Javni konstuktor koji postavlja vrednosti atributa klase
 	 * Rezultat na vrednosti odgovarajucih ulaznih parametara.
 	 * @param ime
@@ -75,6 +81,8 @@ public class Rezultat implements Serializable{
 	}
 
 	public void setIme(String ime) {
+		if (ime == null || ime.isEmpty())
+			throw new RuntimeException();
 		this.ime = ime;
 	}
 
@@ -83,6 +91,8 @@ public class Rezultat implements Serializable{
 	}
 
 	public void setSekunde(int sekunde) {
+		if(sekunde < 0 || sekunde > 59)
+			throw new RuntimeException();
 		this.sekunde = sekunde;
 	}
 	
@@ -91,6 +101,8 @@ public class Rezultat implements Serializable{
 	}
 
 	public void setMinuti(int minuti) {
+		if(minuti < 0 || minuti > 59)
+			throw new RuntimeException();
 		this.minuti = minuti;
 	}
 	
@@ -99,6 +111,8 @@ public class Rezultat implements Serializable{
 	}
 	
 	public void setSati(int sati) {
+		if(sati < 0 || sati > 59)
+			throw new RuntimeException();
 		this.sati = sati;
 	}
 
