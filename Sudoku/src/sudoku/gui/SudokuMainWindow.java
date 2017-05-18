@@ -375,6 +375,13 @@ public class SudokuMainWindow extends JFrame {
 		mnHighscore.add(mntmScoreboard);
 		
 		JMenu mnAbout = new JMenu("About");
+		mnAbout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				JOptionPane.showMessageDialog(null, "This game is developed by Hypnotized crowd\nMain designer: Jovo Turanjanin\nCoder: Bojan Stojev\nTester: Nikola Veselinovic", "Sudoku developers", JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		
 		menuBar.add(mnAbout);
 		
 		
