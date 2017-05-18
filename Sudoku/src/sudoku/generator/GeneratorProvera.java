@@ -269,6 +269,8 @@ public class GeneratorProvera {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				matrica[i][j].setGenerisanaVrednost(0);
+				matrica[i][j].setZakljucano(false);
+				matrica[i][j].setUnesenaVrednost(0);
 			}
 		}
 	}
